@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Raytracer: TypeScript vs Dart</title>
+    <style type="text/css">
+        body {
+            padding: 1em;
+        }
+
+        .side-to-side {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        section {
+            margin: 1em;
+        }
+
+        canvas {
+            border: 1px solid lightgray;
+            display: block;
+        }
+
+    </style>
+</head>
+<body>
+<h1>Raytracer: TypeScript vs Dart</h1>
+
+<div class="side-to-side">
+    <section>
+        <canvas id="ts-canvas" width="256" height="256"></canvas>
+        <button id="ts-button">Render with TypeScript</button>
+        <p id="ts-info"></p>
+    </section>
+
+    <section>
+        <canvas id="dart-canvas" width="256" height="256"></canvas>
+        <button id="dart-button">Render with Dart</button>
+        <p id="dart-info"></p>
+    </section>
+</div>
+
+<script type="application/dart" src="raytracer.dart"></script>
+<script src="packages/browser/dart.js"></script>
+
+<script src="raytracer.js"></script>
+</body>
+</html>
