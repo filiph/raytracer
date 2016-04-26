@@ -288,7 +288,7 @@ function main() {
             times.push(time);
             console.log(times);
             i++;
-            if (i <= max) button.click();
+            if (i < max) button.click();
         }, 100);
     };
 }
