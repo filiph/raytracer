@@ -6,3 +6,6 @@ homepage: https://github.com/dartist/raytracer
 dependencies:
   browser: '>=0.10.0 <0.11.0'
   vector_math: '>=1.4.3 <1.5.0'
+  dart_to_js_script_rewriter: ^1.0.1
+transformers:
+  - dart_to_js_script_rewriter
