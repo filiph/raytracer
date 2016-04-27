@@ -1,6 +1,7 @@
-// Line-for-line port of the TypeScript raytracer to idiomatic Dart. Type
-// information that was missing in the TypeScript version was intentionally
-// left out here, too.
+/// Line-for-line port of the TypeScript raytracer to idiomatic Dart. Type
+/// information that was missing in the TypeScript version was intentionally
+/// left out here, too.
+library ts_raytracer;
 
 import 'dart:async';
 import 'dart:html';
