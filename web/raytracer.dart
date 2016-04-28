@@ -279,15 +279,15 @@ class RayTracer {
 }
 
 defaultScene() => new Scene([
-  new Plane(new Vector(0.0, 1.0, 0.0), 0.0, Surfaces.checkerboard),
-  new Sphere(new Vector(0.0, 1.0, -0.25), 1.0, Surfaces.shiny),
-  new Sphere(new Vector(-1.0, 0.5, 1.5), 0.5, Surfaces.shiny)
-], [
-  new Light(new Vector(-2.0, 2.5, 0.0), new Color(0.49, 0.07, 0.07)),
-  new Light(new Vector(1.5, 2.5, 1.5), new Color(0.07, 0.07, 0.49)),
-  new Light(new Vector(1.5, 2.5, -1.5), new Color(0.07, 0.49, 0.071)),
-  new Light(new Vector(0.0, 3.5, 0.0), new Color(0.21, 0.21, 0.35))
-], new Camera(new Vector(3.0, 2.0, 4.0), new Vector(-1.0, 0.5, 0.0)));
+      new Plane(new Vector(0.0, 1.0, 0.0), 0.0, Surfaces.checkerboard),
+      new Sphere(new Vector(0.0, 1.0, -0.25), 1.0, Surfaces.shiny),
+      new Sphere(new Vector(-1.0, 0.5, 1.5), 0.5, Surfaces.shiny)
+    ], [
+      new Light(new Vector(-2.0, 2.5, 0.0), new Color(0.49, 0.07, 0.07)),
+      new Light(new Vector(1.5, 2.5, 1.5), new Color(0.07, 0.07, 0.49)),
+      new Light(new Vector(1.5, 2.5, -1.5), new Color(0.07, 0.49, 0.071)),
+      new Light(new Vector(0.0, 3.5, 0.0), new Color(0.21, 0.21, 0.35))
+    ], new Camera(new Vector(3.0, 2.0, 4.0), new Vector(-1.0, 0.5, 0.0)));
 
 void main() {
   int width = 256;
@@ -298,7 +298,7 @@ void main() {
   ButtonElement button = querySelector("#dart-button");
 
   int i = 0;
-  int rendersPerBatch = 1;  // Change to run several raytraces on first click.
+  int rendersPerBatch = 1; // Change to run several raytraces on first click.
   var times = [];
 
   button.onClick.listen((_) async {
