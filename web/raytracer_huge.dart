@@ -2,7 +2,6 @@ import 'dart:html';
 import 'dart:math';
 
 import 'raytracer.dart' hide RayTracer;
-import 'dart:collection';
 
 class CustomRayTracer {
   int _maxDepth = 5;
