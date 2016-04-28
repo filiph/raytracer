@@ -4825,7 +4825,7 @@
     },
     _StreamIteratorImpl: {
       "^": "Object;_subscription,_async$_current,_futureOrPrefetch,_state@",
-      _clear$0: function() {
+      _clear$0: function(_) {
         this._subscription = null;
         this._futureOrPrefetch = null;
         this._async$_current = null;
@@ -4853,7 +4853,7 @@
         var hasNext;
         if (this._state === 2) {
           hasNext = this._futureOrPrefetch;
-          this._clear$0();
+          this._clear$0(0);
           hasNext._completeError$2(error, stackTrace);
           return;
         }
@@ -4866,7 +4866,7 @@
       _onDone$0: [function() {
         if (this._state === 2) {
           var hasNext = this._futureOrPrefetch;
-          this._clear$0();
+          this._clear$0(0);
           hasNext._complete$1(false);
           return;
         }
@@ -6219,6 +6219,16 @@
       "^": "Event;client=",
       "%": "CrossOriginConnectEvent"
     },
+    CssStyleDeclaration: {
+      "^": "Interceptor_CssStyleDeclarationBase;length=,_display:display}",
+      "%": "CSS2Properties|CSSStyleDeclaration|MSStyleCSSProperties"
+    },
+    Interceptor_CssStyleDeclarationBase: {
+      "^": "Interceptor+CssStyleDeclarationBase;"
+    },
+    CssStyleDeclarationBase: {
+      "^": "Object;"
+    },
     DocumentFragment: {
       "^": "Node;",
       $isInterceptor: 1,
@@ -7251,7 +7261,6 @@
               return P._asyncHelper(rayTracer.renderAsync$0(), $async$main, $async$completer);
             case 3:
               // returning from await.
-              P.print("First full render completed. Try WSAD.");
             case 1:
               // return
               return P._asyncHelper($async$returnValue, 0, $async$completer, null);
@@ -7317,6 +7326,12 @@
                 t3 = t2.nextInt$1(65536);
                 $async$self.activeJobId = t3;
                 t3 = new R.CustomRayTracer_renderAsync_thisJobIsStillActive($async$self, t3);
+                t4 = document.querySelector("#full-render");
+                t4 = t4 == null ? t4 : t4.style;
+                if (t4 == null)
+                  ;
+                else
+                  J.set$_display$x(t4, "none");
                 t4 = new R.CustomRayTracer_renderAsync_sizeFromCount(16);
                 time = window.performance.now();
                 t5 = $async$self.screenWidth;
@@ -7436,6 +7451,12 @@
                 break;
               case 10:
                 // after for
+                t1 = document.querySelector("#full-render");
+                t1 = t1 == null ? t1 : t1.style;
+                if (t1 == null)
+                  ;
+                else
+                  J.set$_display$x(t1, "inline");
               case 1:
                 // return
                 return P._asyncHelper($async$returnValue, 0, $async$completer, null);
@@ -7864,6 +7885,9 @@
     if (receiver instanceof P.Object)
       return receiver;
     return J.getNativeInterceptor(receiver);
+  };
+  J.set$_display$x = function(receiver, value) {
+    return J.getInterceptor$x(receiver).set$_display(receiver, value);
   };
   J.set$height$x = function(receiver, value) {
     return J.getInterceptor$x(receiver).set$height(receiver, value);
