@@ -16,17 +16,18 @@
             color: white;
             position: absolute;
         }
+
+        #full-render {
+            display: none;
+        }
     </style>
 
 </head>
 <body>
-
-    <p class="hint">Use WSAD or tap to move around.</p>
+    <p class="hint"><span id="full-render">Full render done.</span> Use WSAD or tap to move around.</p>
 
     <!-- Dart -->
     <script defer type="application/dart" src="raytracer_huge.dart"></script>
     <script defer src="packages/browser/dart.js"></script>
-
-
 </body>
 </html>

@@ -117,6 +117,8 @@ class CustomRayTracer {
     var thisJobId = activeJobId;
     bool thisJobIsStillActive() => activeJobId == thisJobId;
 
+    querySelector("#full-render")?.style?.display = "none";
+
     const int logMax = 16;
     const num minSize = 2.8;
     const int frameBudget = 12; // 60 fps plus buffer
@@ -161,6 +163,8 @@ class CustomRayTracer {
         if (!thisJobIsStillActive()) return;
       }
     }
+
+    querySelector("#full-render")?.style?.display = "inline";
   }
 }
 
@@ -227,5 +231,4 @@ main() async {
   });
 
   await rayTracer.renderAsync();
-  print("First full render completed. Try WSAD.");
 }
