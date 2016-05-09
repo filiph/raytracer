@@ -55,12 +55,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.11.3"
-  matcher:
-    description:
-      name: matcher
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.12.0+2"
   path:
     description:
       name: path
@@ -73,12 +67,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.2.3"
-  quiver:
-    description:
-      name: quiver
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.22.0"
   source_span:
     description:
       name: source_span
@@ -97,10 +85,4 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.9.0+3"
-  vector_math:
-    description:
-      name: vector_math
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.4.7"
 sdk: ">=1.14.0 <2.0.0"
