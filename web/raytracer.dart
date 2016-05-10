@@ -1,6 +1,7 @@
 /// Line-for-line port of the TypeScript raytracer to idiomatic Dart. Type
 /// information that was missing in the TypeScript version was intentionally
 /// left out here, too.
+
 library ts_raytracer;
 
 import 'dart:async';
@@ -8,47 +9,62 @@ import 'dart:html';
 import 'dart:math';
 
 class Vector {
-  final num x, y, z;
+  final num x;
+  final num y;
+  final num z;
   Vector(this.x, this.y, this.z);
 
   operator *(num k) => new Vector(k * x, k * y, k * z);
   operator -(Vector o) => new Vector(x - o.x, y - o.y, z - o.z);
   operator +(Vector o) => new Vector(x + o.x, y + o.y, z + o.z);
-  num dot(Vector o) => x * o.x + y * o.y + z * o.z;
-  num mag() => sqrt(x * x + y * y + z * z);
-
-  Vector norm() {
+  dot(Vector o) => x * o.x + y * o.y + z * o.z;
+  mag() => sqrt(x * x + y * y + z * z);
+  norm() {
     var mag = this.mag();
     var div = (mag == 0) ? double.INFINITY : 1.0 / mag;
     return this * div;
   }
-
-  Vector cross(Vector o) =>
+  cross(Vector o) =>
       new Vector(y * o.z - z * o.y, z * o.x - x * o.z, x * o.y - y * o.x);
 }
 
 class Color {
-  final double r, g, b;
+  final double r;
+  final double g;
+  final double b;
   const Color(this.r, this.g, this.b);
 
   scale(double k) => new Color(k * r, k * g, k * b);
   operator +(Color v) => new Color(r + v.r, g + v.g, b + v.b);
   operator *(Color v) => new Color(r * v.r, g * v.g, b * v.b);
 
-  static const white = const Color(1.0, 1.0, 1.0);
-  static const grey = const Color(0.5, 0.5, 0.5);
-  static const black = const Color(0.0, 0.0, 0.0);
-  static const background = Color.black;
-  static const defaultColor = Color.black;
+  static var white = new Color(1.0, 1.0, 1.0);
+  static var grey = new Color(0.5, 0.5, 0.5);
+  static var black = new Color(0.0, 0.0, 0.0);
+  static var background = Color.black;
+  static var defaultColor = Color.black;
 
   toDrawingColor() {
-    var legalize = (num d) => ((d > 1 ? 1 : d) * 255).toInt();
-    return "${legalize(r)}, ${legalize(g)}, ${legalize(b)}";
+    var legalize = (num d) => d > 1 ? 1 : d;
+    return new DrawingColor(
+        r: (legalize(r) * 255).toInt(),
+        g: (legalize(g) * 255).toInt(),
+        b: (legalize(b) * 255).toInt());
   }
 }
 
+class DrawingColor {
+  final int r;
+  final int g;
+  final int b;
+  DrawingColor({this.r, this.g, this.b});
+}
+
 class Camera {
-  Vector pos, forward, right, up;
+  Vector pos;
+  Vector forward;
+  Vector right;
+  Vector up;
 
   Camera(this.pos, Vector lookAt) {
     var down = new Vector(0.0, -1.0, 0.0);
@@ -59,7 +75,8 @@ class Camera {
 }
 
 class Ray {
-  Vector start, dir;
+  Vector start;
+  Vector dir;
   Ray(this.start, this.dir);
 }
 
@@ -97,7 +114,8 @@ class Scene {
 }
 
 class Sphere implements Thing {
-  double radius2, radius;
+  double radius;
+  double radius2;
   Vector center;
   Surface surface;
 
@@ -182,7 +200,7 @@ class RayTracer {
 
   _intersections(Ray ray, Scene scene) {
     double closest = double.INFINITY;
-    Intersection closestInter = null;
+    Intersection closestInter;
     for (Thing thing in scene.things) {
       Intersection inter = thing.intersect(ray);
       if (inter != null && inter.dist < closest) {
@@ -234,7 +252,7 @@ class RayTracer {
 
   _getNaturalColor(
       Thing thing, Vector pos, Vector norm, Vector rd, Scene scene) {
-    var addLight = (col, light) {
+    var addLight = (col, Light light) {
       var ldis = light.pos - pos;
       var livec = ldis.norm();
       var neatIsect = _testRay(new Ray(pos, livec), scene);
@@ -271,7 +289,8 @@ class RayTracer {
       for (var x = 0; x < screenWidth; x++) {
         var color = _traceRay(
             new Ray(scene.camera.pos, getPoint(x, y, scene.camera)), scene, 0);
-        ctx.fillStyle = "rgb(${color.toDrawingColor()})";
+        var c = color.toDrawingColor();
+        ctx.fillStyle = "rgb(${c.r}, ${c.g}, ${c.b})";
         ctx.fillRect(x, y, x + 1, y + 1);
       }
     }
@@ -306,7 +325,7 @@ void main() {
     var ctx = canvas.context2D;
     ctx.clearRect(0, 0, width, height);
     // Take the time to show the above to user.
-    await new Future.delayed(const Duration(milliseconds: 100));
+    await new Future.delayed(new Duration(milliseconds: 100));
     var start = window.performance.now();
     var rayTracer = new RayTracer();
     rayTracer.render(defaultScene(), ctx, width, height);

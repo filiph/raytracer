@@ -23,7 +23,7 @@ class CustomRayTracer {
 
   _intersections(Ray ray, Scene scene) {
     double closest = double.INFINITY;
-    Intersection closestInter = null;
+    Intersection closestInter;
     for (Thing thing in scene.things) {
       Intersection inter = thing.intersect(ray);
       if (inter != null && inter.dist < closest) {
@@ -75,7 +75,7 @@ class CustomRayTracer {
 
   _getNaturalColor(
       Thing thing, Vector pos, Vector norm, Vector rd, Scene scene) {
-    var addLight = (col, light) {
+    var addLight = (col, Light light) {
       var ldis = light.pos - pos;
       var livec = ldis.norm();
       var neatIsect = _testRay(new Ray(pos, livec), scene);
@@ -132,7 +132,8 @@ class CustomRayTracer {
       int y = _random.nextInt(screenHeight);
 
       var color = getColor(x, y);
-      ctx.fillStyle = "rgb(${color.toDrawingColor()})";
+      var drawingColor = color.toDrawingColor();
+      ctx.setFillColorRgb(drawingColor.r, drawingColor.g, drawingColor.b);
 
       int size = sizeFromCount(count).floor();
 
@@ -154,7 +155,8 @@ class CustomRayTracer {
       int y = pixel ~/ screenWidth;
 
       var color = getColor(x, y);
-      ctx.fillStyle = "rgb(${color.toDrawingColor()})";
+      var drawingColor = color.toDrawingColor();
+      ctx.setFillColorRgb(drawingColor.r, drawingColor.g, drawingColor.b);
       ctx.fillRect(x, y, 1, 1);
 
       if (window.performance.now() - time > frameBudget) {
@@ -180,16 +182,16 @@ main() async {
   var rayTracer = new CustomRayTracer(scene, ctx, width, height);
 
   void moveForward() {
-    scene.camera.pos += scene.camera.forward;
+    scene.camera.pos = scene.camera.pos + scene.camera.forward;
   }
   void moveBackward() {
-    scene.camera.pos -= scene.camera.forward;
+    scene.camera.pos = scene.camera.pos - scene.camera.forward;
   }
   void moveLeft() {
-    scene.camera.pos -= scene.camera.right;
+    scene.camera.pos = scene.camera.pos - scene.camera.right;
   }
   void moveRight() {
-    scene.camera.pos += scene.camera.right;
+    scene.camera.pos = scene.camera.pos + scene.camera.right;
   }
 
   window.onKeyDown.listen((e) {
@@ -212,11 +214,11 @@ main() async {
     rayTracer.restart();
   });
 
-  var clickMap = {
-    new Point(width ~/ 2, 0): moveForward,
-    new Point(width ~/ 2, height): moveBackward,
-    new Point(0, height ~/ 2): moveLeft,
-    new Point(width, height ~/ 2): moveRight
+  var clickMap = <Point<int>, Function>{
+    new Point<int>(width ~/ 2, 0): moveForward,
+    new Point<int>(width ~/ 2, height): moveBackward,
+    new Point<int>(0, height ~/ 2): moveLeft,
+    new Point<int>(width, height ~/ 2): moveRight
   };
 
   window.onClick.listen((e) {
