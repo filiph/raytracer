@@ -33,7 +33,7 @@
 <body>
     <h1>Raytracer: TypeScript &amp; Dart</h1>
 
-    <p>Both programs were compiled to JavaScript. Dart was compiled using debug mode (in case you wanted to inspect the code in browser). <strong>Tip:</strong> Widen the browser window to see code side-by-side.</p>
+    <p><strong>Both programs were compiled to JavaScript.</strong> Dart was compiled using debug mode (in case you wanted to inspect the code in browser). <strong>Tip:</strong> Widen the browser window to see code side-by-side.</p>
 
     <div class="side-to-side">
         <section>
@@ -51,11 +51,10 @@
 
     <div class="side-to-side">
         <section>
-            <h2>TypeScript code</h2>
+            <h2>TypeScript code (from <a href="github.com/Microsoft/TypeScriptSamples/blob/master/raytracer/">official repo</a>)</h2>
             <pre><code class="typescript">
-// Code from github.com/Microsoft/TypeScriptSamples/blob/master/raytracer/
 // Reformated to fit in 80 character width. Added start button functionality
-// and basic performance testing.
+// and basic performance testing in the exec() method.
 
 class Vector {
   constructor(public x: number,
@@ -410,74 +409,75 @@ exec();
         </section>
 
         <section>
-            <h2>Dart code</h2>
+            <h2>Dart code (from <a href="https://github.com/filiph/raytracer">here</a>)</h2>
             <pre><code class="dart">
-// Line-for-line port of the TypeScript raytracer to idiomatic Dart. Type
-// information that was missing in the TypeScript version was intentionally
-// left out here, too.
+/// Line-for-line port of the TypeScript raytracer to idiomatic Dart. Type
+/// information that was missing in the TypeScript version was intentionally
+/// left out here, too.
+
+library ts_raytracer;
 
 import 'dart:async';
 import 'dart:html';
 import 'dart:math';
 
 class Vector {
-  final num x, y, z;
+  final num x;
+  final num y;
+  final num z;
   Vector(this.x, this.y, this.z);
 
   operator *(num k) =&gt; new Vector(k * x, k * y, k * z);
   operator -(Vector o) =&gt; new Vector(x - o.x, y - o.y, z - o.z);
   operator +(Vector o) =&gt; new Vector(x + o.x, y + o.y, z + o.z);
-  num dot(Vector o) =&gt; x * o.x + y * o.y + z * o.z;
-  num mag() =&gt; sqrt(x * x + y * y + z * z);
-
-  Vector norm() {
+  dot(Vector o) =&gt; x * o.x + y * o.y + z * o.z;
+  mag() =&gt; sqrt(x * x + y * y + z * z);
+  norm() {
     var mag = this.mag();
     var div = (mag == 0) ? double.INFINITY : 1.0 / mag;
     return this * div;
   }
-
-  Vector cross(Vector o) =&gt;
+  cross(Vector o) =&gt;
       new Vector(y * o.z - z * o.y, z * o.x - x * o.z, x * o.y - y * o.x);
 }
 
-
-
-
-
-
-
-
 class Color {
-  final double r, g, b;
+  final double r;
+  final double g;
+  final double b;
   const Color(this.r, this.g, this.b);
 
   scale(double k) =&gt; new Color(k * r, k * g, k * b);
   operator +(Color v) =&gt; new Color(r + v.r, g + v.g, b + v.b);
   operator *(Color v) =&gt; new Color(r * v.r, g * v.g, b * v.b);
 
-  static const white = const Color(1.0, 1.0, 1.0);
-  static const grey = const Color(0.5, 0.5, 0.5);
-  static const black = const Color(0.0, 0.0, 0.0);
-  static const background = Color.black;
-  static const defaultColor = Color.black;
+  static var white = new Color(1.0, 1.0, 1.0);
+  static var grey = new Color(0.5, 0.5, 0.5);
+  static var black = new Color(0.0, 0.0, 0.0);
+  static var background = Color.black;
+  static var defaultColor = Color.black;
 
   toDrawingColor() {
-    var legalize = (num d) =&gt; ((d &gt; 1 ? 1 : d) * 255).toInt();
-    return "${legalize(r)}, ${legalize(g)}, ${legalize(b)}";
+    var legalize = (num d) =&gt; d &gt; 1 ? 1 : d;
+    return new DrawingColor(
+        r: (legalize(r) * 255).toInt(),
+        g: (legalize(g) * 255).toInt(),
+        b: (legalize(b) * 255).toInt());
   }
 }
 
-
-
-
-
-
-
-
-
+class DrawingColor {
+  final int r;
+  final int g;
+  final int b;
+  DrawingColor({this.r, this.g, this.b});
+}
 
 class Camera {
-  Vector pos, forward, right, up;
+  Vector pos;
+  Vector forward;
+  Vector right;
+  Vector up;
 
   Camera(this.pos, Vector lookAt) {
     var down = new Vector(0.0, -1.0, 0.0);
@@ -487,12 +487,9 @@ class Camera {
   }
 }
 
-
-
-
-
 class Ray {
-  Vector start, dir;
+  Vector start;
+  Vector dir;
   Ray(this.start, this.dir);
 }
 
@@ -530,7 +527,8 @@ class Scene {
 }
 
 class Sphere implements Thing {
-  double radius2, radius;
+  double radius;
+  double radius2;
   Vector center;
   Surface surface;
 
@@ -615,7 +613,7 @@ class RayTracer {
 
   _intersections(Ray ray, Scene scene) {
     double closest = double.INFINITY;
-    Intersection closestInter = null;
+    Intersection closestInter;
     for (Thing thing in scene.things) {
       Intersection inter = thing.intersect(ray);
       if (inter != null &amp;&amp; inter.dist &lt; closest) {
@@ -658,8 +656,6 @@ class RayTracer {
     return naturalColor + reflectedColor;
   }
 
-
-
   _getReflectionColor(Thing thing, Vector pos, Vector normal, Vector rd,
       Scene scene, int depth) {
     var color = _traceRay(new Ray(pos, rd), scene, depth + 1);
@@ -669,7 +665,7 @@ class RayTracer {
 
   _getNaturalColor(
       Thing thing, Vector pos, Vector norm, Vector rd, Scene scene) {
-    var addLight = (col, light) {
+    var addLight = (col, Light light) {
       var ldis = light.pos - pos;
       var livec = ldis.norm();
       var neatIsect = _testRay(new Ray(pos, livec), scene);
@@ -692,7 +688,6 @@ class RayTracer {
     return scene.lights.fold(Color.defaultColor, addLight);
   }
 
-
   render(scene, ctx, screenWidth, screenHeight) {
     var getPoint = (x, y, camera) {
       var recenterX = (x) =&gt; (x - (screenWidth / 2.0)) / 2.0 / screenWidth;
@@ -707,27 +702,24 @@ class RayTracer {
       for (var x = 0; x &lt; screenWidth; x++) {
         var color = _traceRay(
             new Ray(scene.camera.pos, getPoint(x, y, scene.camera)), scene, 0);
-        ctx.fillStyle = "rgb(${color.toDrawingColor()})";
+        var c = color.toDrawingColor();
+        ctx.fillStyle = "rgb(${c.r}, ${c.g}, ${c.b})";
         ctx.fillRect(x, y, x + 1, y + 1);
       }
     }
   }
 }
 
-
-
 defaultScene() =&gt; new Scene([
-  new Plane(new Vector(0.0, 1.0, 0.0), 0.0, Surfaces.checkerboard),
-  new Sphere(new Vector(0.0, 1.0, -0.25), 1.0, Surfaces.shiny),
-  new Sphere(new Vector(-1.0, 0.5, 1.5), 0.5, Surfaces.shiny)
-], [
-  new Light(new Vector(-2.0, 2.5, 0.0), new Color(0.49, 0.07, 0.07)),
-  new Light(new Vector(1.5, 2.5, 1.5), new Color(0.07, 0.07, 0.49)),
-  new Light(new Vector(1.5, 2.5, -1.5), new Color(0.07, 0.49, 0.071)),
-  new Light(new Vector(0.0, 3.5, 0.0), new Color(0.21, 0.21, 0.35))
-], new Camera(new Vector(3.0, 2.0, 4.0), new Vector(-1.0, 0.5, 0.0)));
-
-
+      new Plane(new Vector(0.0, 1.0, 0.0), 0.0, Surfaces.checkerboard),
+      new Sphere(new Vector(0.0, 1.0, -0.25), 1.0, Surfaces.shiny),
+      new Sphere(new Vector(-1.0, 0.5, 1.5), 0.5, Surfaces.shiny)
+    ], [
+      new Light(new Vector(-2.0, 2.5, 0.0), new Color(0.49, 0.07, 0.07)),
+      new Light(new Vector(1.5, 2.5, 1.5), new Color(0.07, 0.07, 0.49)),
+      new Light(new Vector(1.5, 2.5, -1.5), new Color(0.07, 0.49, 0.071)),
+      new Light(new Vector(0.0, 3.5, 0.0), new Color(0.21, 0.21, 0.35))
+    ], new Camera(new Vector(3.0, 2.0, 4.0), new Vector(-1.0, 0.5, 0.0)));
 
 void main() {
   int width = 256;
@@ -738,7 +730,7 @@ void main() {
   ButtonElement button = querySelector("#dart-button");
 
   int i = 0;
-  int rendersPerBatch = 1;  // Change to run several raytraces on first click.
+  int rendersPerBatch = 1; // Change to run several raytraces on first click.
   var times = [];
 
   button.onClick.listen((_) async {
@@ -746,7 +738,7 @@ void main() {
     var ctx = canvas.context2D;
     ctx.clearRect(0, 0, width, height);
     // Take the time to show the above to user.
-    await new Future.delayed(const Duration(milliseconds: 100));
+    await new Future.delayed(new Duration(milliseconds: 100));
     var start = window.performance.now();
     var rayTracer = new RayTracer();
     rayTracer.render(defaultScene(), ctx, width, height);

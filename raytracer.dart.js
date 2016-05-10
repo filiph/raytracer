@@ -3481,13 +3481,13 @@
       }
     },
     initHooks_closure0: {
-      "^": "Closure:7;getUnknownTag",
+      "^": "Closure:6;getUnknownTag",
       call$2: function(o, tag) {
         return this.getUnknownTag(o, tag);
       }
     },
     initHooks_closure1: {
-      "^": "Closure:8;prototypeForTag",
+      "^": "Closure:7;prototypeForTag",
       call$1: function(tag) {
         return this.prototypeForTag(tag);
       }
@@ -3902,7 +3902,7 @@
       }
     },
     _AsyncRun__initializeScheduleImmediate_closure: {
-      "^": "Closure:9;_box_0,div,span",
+      "^": "Closure:8;_box_0,div,span",
       call$1: function(callback) {
         var t1, t2;
         ++init.globalState.topEventLoop._activeJsAsyncCount;
@@ -3939,7 +3939,7 @@
       }
     },
     _wrapJsFunctionForAsync_closure: {
-      "^": "Closure:10;$protected",
+      "^": "Closure:9;$protected",
       call$2: function(errorCode, result) {
         this.$protected(errorCode, result);
       }
@@ -4131,7 +4131,7 @@
         P._Future__propagateToListeners(this, listeners);
       }, function(error) {
         return this._completeError$2(error, null);
-      }, "_completeError$1", "call$2", "call$1", "get$_completeError", 2, 2, 11, 0],
+      }, "_completeError$1", "call$2", "call$1", "get$_completeError", 2, 2, 10, 0],
       $isFuture: 1,
       static: {
         _Future__chainForeignFuture: function(source, target) {
@@ -4284,7 +4284,7 @@
       }
     },
     _Future__chainForeignFuture_closure0: {
-      "^": "Closure:12;target",
+      "^": "Closure:11;target",
       call$2: function(error, stackTrace) {
         this.target._completeError$2(error, stackTrace);
       },
@@ -4859,7 +4859,7 @@
         this._state = 4;
       }, function(error) {
         return this._onError$2(error, null);
-      }, "_onError$1", "call$2", "call$1", "get$_onError", 2, 2, 13, 0],
+      }, "_onError$1", "call$2", "call$1", "get$_onError", 2, 2, 12, 0],
       _onDone$0: [function() {
         if (this._state === 2) {
           var hasNext = this._futureOrPrefetch;
@@ -4943,7 +4943,7 @@
       }],
       _handleError$2: [function(error, stackTrace) {
         this._addError$2(error, stackTrace);
-      }, "call$2", "get$_handleError", 4, 0, 14],
+      }, "call$2", "get$_handleError", 4, 0, 13],
       _handleDone$0: [function() {
         this._async$_close$0();
       }, "call$0", "get$_handleDone", 0, 0, 1],
@@ -5557,7 +5557,7 @@
       $isEfficientLength: 1
     },
     Maps_mapToString_closure: {
-      "^": "Closure:5;_box_0,result",
+      "^": "Closure:14;_box_0,result",
       call$2: function(k, v) {
         var t1, t2;
         t1 = this._box_0;
@@ -5798,10 +5798,15 @@
       },
       $negate: function(_) {
         return new P.Duration(-this._duration);
+      },
+      static: {
+        Duration$: function(days, hours, microseconds, milliseconds, minutes, seconds) {
+          return new P.Duration(864e8 * days + 3600000000 * hours + 60000000 * minutes + 1000000 * seconds + 1000 * milliseconds + microseconds);
+        }
       }
     },
     Duration_toString_sixDigits: {
-      "^": "Closure:6;",
+      "^": "Closure:5;",
       call$1: function(n) {
         if (n >= 100000)
           return "" + n;
@@ -5817,7 +5822,7 @@
       }
     },
     Duration_toString_twoDigits: {
-      "^": "Closure:6;",
+      "^": "Closure:5;",
       call$1: function(n) {
         if (n >= 10)
           return "" + n;
@@ -6955,27 +6960,30 @@
       }
     },
     Color: {
-      "^": "Object;r>,g<,b",
+      "^": "Object;r>,g<,b<",
       scale$1: function(_, k) {
         var t1 = J.getInterceptor$ns(k);
         return new M.Color(t1.$mul(k, this.r), t1.$mul(k, this.g), t1.$mul(k, this.b));
       },
       $add: function(_, v) {
-        return new M.Color(J.$add$ns(this.r, J.get$r$x(v)), J.$add$ns(this.g, v.get$g()), J.$add$ns(this.b, v.b));
+        return new M.Color(J.$add$ns(this.r, J.get$r$x(v)), J.$add$ns(this.g, v.get$g()), J.$add$ns(this.b, v.get$b()));
       },
       $mul: function(_, v) {
-        return new M.Color(J.$mul$ns(this.r, J.get$r$x(v)), J.$mul$ns(this.g, v.get$g()), J.$mul$ns(this.b, v.b));
+        return new M.Color(J.$mul$ns(this.r, J.get$r$x(v)), J.$mul$ns(this.g, v.get$g()), J.$mul$ns(this.b, v.get$b()));
       },
       toDrawingColor$0: function() {
         var legalize = new M.Color_toDrawingColor_closure();
-        return H.S(legalize.call$1(this.r)) + ", " + H.S(legalize.call$1(this.g)) + ", " + H.S(legalize.call$1(this.b));
+        return new M.DrawingColor(J.toInt$0$n(J.$mul$ns(legalize.call$1(this.r), 255)), J.toInt$0$n(J.$mul$ns(legalize.call$1(this.g), 255)), J.toInt$0$n(J.$mul$ns(legalize.call$1(this.b), 255)));
       }
     },
     Color_toDrawingColor_closure: {
       "^": "Closure:15;",
       call$1: function(d) {
-        return J.toInt$0$n(J.$mul$ns(J.$gt$n(d, 1) ? 1 : d, 255));
+        return J.$gt$n(d, 1) ? 1 : d;
       }
+    },
+    DrawingColor: {
+      "^": "Object;r>,g<,b<"
     },
     Camera: {
       "^": "Object;pos<,forward,right,up"
@@ -6993,7 +7001,7 @@
       "^": "Object;things,lights,camera"
     },
     Sphere: {
-      "^": "Object;radius2,radius,center,surface<",
+      "^": "Object;radius,radius2,center,surface<",
       normal$1: function(pos) {
         return J.$sub$n(pos, this.center).norm$0();
       },
@@ -7042,13 +7050,13 @@
     closure: {
       "^": "Closure:2;",
       call$1: function(_) {
-        return C.Color_1_1_1;
+        return $.$get$Color_white();
       }
     },
     closure0: {
       "^": "Closure:2;",
       call$1: function(_) {
-        return C.Color_EuX;
+        return $.$get$Color_grey();
       }
     },
     closure1: {
@@ -7062,15 +7070,15 @@
       call$1: function(pos) {
         var t1 = J.getInterceptor$x(pos);
         if (C.JSInt_methods.$mod(J.floor$0$n(t1.get$z(pos)) + J.floor$0$n(t1.get$x(pos)), 2) !== 0)
-          return C.Color_1_1_1;
+          return $.$get$Color_white();
         else
-          return C.Color_0_0_0;
+          return $.$get$Color_black();
       }
     },
     closure3: {
       "^": "Closure:2;",
       call$1: function(_) {
-        return C.Color_1_1_1;
+        return $.$get$Color_white();
       }
     },
     closure4: {
@@ -7119,7 +7127,7 @@
         var isect, t1, d, t2, pos, normal, t3, t4, t5, t6, t7, reflectDir, reflectedColor, color, scale;
         isect = this._intersections$2(ray, scene);
         if (isect == null)
-          return C.Color_0_0_0;
+          return $.$get$Color_background();
         else {
           t1 = isect.ray;
           d = t1.dir;
@@ -7142,52 +7150,39 @@
           if (typeof t5 !== "number")
             return H.iae(t5);
           reflectDir = t2.$sub(d, new M.Vector(2 * t3, 2 * t4, 2 * t5));
-          t5 = this._getNaturalColor$5(t1, pos, normal, reflectDir, scene);
-          t4 = J.get$r$x(t5);
-          if (typeof t4 !== "number")
-            return H.iae(t4);
-          t3 = t5.get$g();
-          if (typeof t3 !== "number")
-            return H.iae(t3);
-          t5 = t5.b;
-          if (typeof t5 !== "number")
-            return H.iae(t5);
+          t5 = $.$get$Color_background();
+          t4 = this._getNaturalColor$5(t1, pos, normal, reflectDir, scene);
+          t3 = J.$add$ns(t5.r, J.get$r$x(t4));
+          t2 = J.$add$ns(t5.g, t4.get$g());
+          t4 = J.$add$ns(t5.b, t4.get$b());
           if (depth >= this._maxDepth)
-            reflectedColor = C.Color_EuX;
+            reflectedColor = $.$get$Color_grey();
           else {
             color = this._traceRay$3(new M.Ray(pos, reflectDir), scene, depth + 1);
             scale = t1.get$surface()._reflect$1(pos);
             t1 = J.getInterceptor$ns(scale);
             reflectedColor = new M.Color(t1.$mul(scale, color.r), t1.$mul(scale, color.g), t1.$mul(scale, color.b));
           }
-          t1 = reflectedColor.r;
-          if (typeof t1 !== "number")
-            return H.iae(t1);
-          t2 = reflectedColor.g;
-          if (typeof t2 !== "number")
-            return H.iae(t2);
-          t6 = reflectedColor.b;
-          if (typeof t6 !== "number")
-            return H.iae(t6);
-          return new M.Color(0 + t4 + t1, 0 + t3 + t2, 0 + t5 + t6);
+          return new M.Color(J.$add$ns(t3, reflectedColor.r), J.$add$ns(t2, reflectedColor.g), J.$add$ns(t4, reflectedColor.b));
         }
       },
       _getNaturalColor$5: function(thing, pos, norm, rd, scene) {
-        return C.JSArray_methods.fold$2(scene.lights, C.Color_0_0_0, new M.RayTracer__getNaturalColor_closure(this, thing, pos, norm, rd, scene));
+        return C.JSArray_methods.fold$2(scene.lights, $.$get$Color_defaultColor(), new M.RayTracer__getNaturalColor_closure(this, thing, pos, norm, rd, scene));
       },
       render$4: function(scene, ctx, screenWidth, screenHeight) {
-        var getPoint, t1, t2, y, y0, x, x0;
+        var getPoint, t1, t2, y, y0, x, c, x0;
         getPoint = new M.RayTracer_render_closure(screenWidth, screenHeight);
         for (t1 = scene.camera, t2 = t1.pos, y = 0; y < screenHeight; y = y0)
           for (y0 = y + 1, x = 0; x < screenWidth; x = x0) {
-            ctx.fillStyle = "rgb(" + this._traceRay$3(new M.Ray(t2, getPoint.call$3(x, y, t1)), scene, 0).toDrawingColor$0() + ")";
+            c = this._traceRay$3(new M.Ray(t2, getPoint.call$3(x, y, t1)), scene, 0).toDrawingColor$0();
+            ctx.fillStyle = "rgb(" + c.r + ", " + c.g + ", " + c.b + ")";
             x0 = x + 1;
             ctx.fillRect(x, y, x0, y0);
           }
       }
     },
     RayTracer__getNaturalColor_closure: {
-      "^": "Closure:5;$this,thing,pos,norm,rd,scene",
+      "^": "Closure:17;$this,thing,pos,norm,rd,scene",
       call$2: function(col, light) {
         var t1, ldis, livec, neatIsect, illum, lcolor, specular, t2, t3, scolor;
         t1 = this.pos;
@@ -7198,7 +7193,7 @@
           return col;
         else {
           illum = livec.dot$1(this.norm);
-          lcolor = J.$gt$n(illum, 0) ? light.get$color(light).scale$1(0, illum) : C.Color_0_0_0;
+          lcolor = J.$gt$n(illum, 0) ? light.get$color(light).scale$1(0, illum) : $.$get$Color_defaultColor();
           specular = livec.dot$1(this.rd.norm$0());
           if (J.$gt$n(specular, 0)) {
             t2 = light.get$color(light);
@@ -7207,14 +7202,14 @@
             H.checkNum(t3);
             scolor = t2.scale$1(0, Math.pow(specular, t3));
           } else
-            scolor = C.Color_0_0_0;
+            scolor = $.$get$Color_defaultColor();
           t2 = this.thing;
           return J.$add$ns(J.$add$ns(col, J.$mul$ns(t2.get$surface()._diffuse$1(t1), lcolor)), J.$mul$ns(t2.get$surface()._specular$1(t1), scolor));
         }
       }
     },
     RayTracer_render_closure: {
-      "^": "Closure:17;screenWidth,screenHeight",
+      "^": "Closure:18;screenWidth,screenHeight",
       call$3: function(x, y, camera) {
         return camera.forward.$add(0, camera.right.$mul(0, new M.RayTracer_render__closure(this.screenWidth).call$1(x))).$add(0, camera.up.$mul(0, new M.RayTracer_render__closure0(this.screenHeight).call$1(y))).norm$0();
       }
@@ -7234,7 +7229,7 @@
       }
     },
     main_closure: {
-      "^": "Closure:18;_box_0,width,height,canvas,info,button,rendersPerBatch,times",
+      "^": "Closure:19;_box_0,width,height,canvas,info,button,rendersPerBatch,times",
       call$1: function(_) {
         var $async$goto = 0, $async$completer = new P.Completer_Completer$sync(), $async$returnValue, $async$handler = 2, $async$currentError, $async$self = this, t1, ctx, t2, t3, start, t4, t5, t6, t7, t8, time;
         var $async$call$1 = P._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
@@ -7253,7 +7248,7 @@
                 t3 = $async$self.height;
                 ctx.clearRect(0, 0, t2, t3);
                 $async$goto = 3;
-                return P._asyncHelper(P.Future_Future$delayed(C.Duration_100000, null, null), $async$call$1, $async$completer);
+                return P._asyncHelper(P.Future_Future$delayed(P.Duration$(0, 0, 0, 100, 0, 0), null, null), $async$call$1, $async$completer);
               case 3:
                 // returning from await.
                 start = window.performance.now();
@@ -7266,7 +7261,7 @@
                 t8 = t6.cross$1(new M.Vector(0, -1, 0)).norm$0().$mul(0, 1.5);
                 t7.right = t8;
                 t7.up = t6.cross$1(t8).norm$0().$mul(0, 1.5);
-                new M.RayTracer(5).render$4(new M.Scene([new M.Plane(new M.Vector(0, 1, 0), 0, t4), new M.Sphere(1, 1, new M.Vector(0, 1, -0.25), t5), new M.Sphere(0.25, 0.5, new M.Vector(-1, 0.5, 1.5), t5)], [new M.Light(new M.Vector(-2, 2.5, 0), new M.Color(0.49, 0.07, 0.07)), new M.Light(new M.Vector(1.5, 2.5, 1.5), new M.Color(0.07, 0.07, 0.49)), new M.Light(new M.Vector(1.5, 2.5, -1.5), new M.Color(0.07, 0.49, 0.071)), new M.Light(new M.Vector(0, 3.5, 0), new M.Color(0.21, 0.21, 0.35))], t7), ctx, t2, t3);
+                new M.RayTracer(5).render$4(new M.Scene([new M.Plane(new M.Vector(0, 1, 0), 0, t4), new M.Sphere(1, 1, new M.Vector(0, 1, -0.25), t5), new M.Sphere(0.5, 0.25, new M.Vector(-1, 0.5, 1.5), t5)], [new M.Light(new M.Vector(-2, 2.5, 0), new M.Color(0.49, 0.07, 0.07)), new M.Light(new M.Vector(1.5, 2.5, 1.5), new M.Color(0.07, 0.07, 0.49)), new M.Light(new M.Vector(1.5, 2.5, -1.5), new M.Color(0.07, 0.49, 0.071)), new M.Light(new M.Vector(0, 3.5, 0), new M.Color(0.21, 0.21, 0.35))], t7), ctx, t2, t3);
                 t3 = window.performance.now();
                 if (typeof t3 !== "number") {
                   $async$returnValue = t3.$sub();
@@ -7499,11 +7494,7 @@
   C.C_OutOfMemoryError = new P.OutOfMemoryError();
   C.C__DelayedDone = new P._DelayedDone();
   C.C__RootZone = new P._RootZone();
-  C.Color_0_0_0 = new M.Color(0, 0, 0);
-  C.Color_1_1_1 = new M.Color(1, 1, 1);
-  C.Color_EuX = new M.Color(0.5, 0.5, 0.5);
   C.Duration_0 = new P.Duration(0);
-  C.Duration_100000 = new P.Duration(100000);
   C.JS_CONST_0 = function(hooks) {
   if (typeof dartExperimentalFixupGetTag != "function") return hooks;
   hooks.getTag = dartExperimentalFixupGetTag(hooks.getTag);
@@ -7749,7 +7740,17 @@
     return P._AsyncRun__initializeScheduleImmediate();
   }, "_AsyncRun__scheduleImmediateClosure", "_toStringVisiting", "$get$_toStringVisiting", function() {
     return [];
-  }, "_toStringVisiting", "Surfaces_shiny", "$get$Surfaces_shiny", function() {
+  }, "_toStringVisiting", "Color_white", "$get$Color_white", function() {
+    return new M.Color(1, 1, 1);
+  }, "Color_white", "Color_grey", "$get$Color_grey", function() {
+    return new M.Color(0.5, 0.5, 0.5);
+  }, "Color_grey", "Color_black", "$get$Color_black", function() {
+    return new M.Color(0, 0, 0);
+  }, "Color_black", "Color_background", "$get$Color_background", function() {
+    return $.$get$Color_black();
+  }, "Color_background", "Color_defaultColor", "$get$Color_defaultColor", function() {
+    return $.$get$Color_black();
+  }, "Color_defaultColor", "Surfaces_shiny", "$get$Surfaces_shiny", function() {
     return new M.CustomSurface(new M.closure(), new M.closure0(), new M.closure1(), 250);
   }, "Surfaces_shiny", "Surfaces_checkerboard", "$get$Surfaces_checkerboard", function() {
     return new M.CustomSurface(new M.closure2(), new M.closure3(), new M.closure4(), 150);
@@ -7757,7 +7758,7 @@
   Isolate = Isolate.$finishIsolateConstructor(Isolate);
   $ = new Isolate();
   init.metadata = [null];
-  init.types = [{func: 1}, {func: 1, v: true}, {func: 1, args: [,]}, {func: 1, v: true, args: [{func: 1, v: true}]}, {func: 1, args: [, P.StackTrace]}, {func: 1, args: [,,]}, {func: 1, ret: P.String, args: [P.$int]}, {func: 1, args: [, P.String]}, {func: 1, args: [P.String]}, {func: 1, args: [{func: 1, v: true}]}, {func: 1, args: [P.$int,,]}, {func: 1, v: true, args: [,], opt: [P.StackTrace]}, {func: 1, args: [,], opt: [,]}, {func: 1, v: true, args: [P.Object], opt: [P.StackTrace]}, {func: 1, v: true, args: [, P.StackTrace]}, {func: 1, args: [P.num]}, {func: 1, args: [M.Vector]}, {func: 1, args: [,,,]}, {func: 1, ret: P.Future, args: [,]}];
+  init.types = [{func: 1}, {func: 1, v: true}, {func: 1, args: [,]}, {func: 1, v: true, args: [{func: 1, v: true}]}, {func: 1, args: [, P.StackTrace]}, {func: 1, ret: P.String, args: [P.$int]}, {func: 1, args: [, P.String]}, {func: 1, args: [P.String]}, {func: 1, args: [{func: 1, v: true}]}, {func: 1, args: [P.$int,,]}, {func: 1, v: true, args: [,], opt: [P.StackTrace]}, {func: 1, args: [,], opt: [,]}, {func: 1, v: true, args: [P.Object], opt: [P.StackTrace]}, {func: 1, v: true, args: [, P.StackTrace]}, {func: 1, args: [,,]}, {func: 1, args: [P.num]}, {func: 1, args: [M.Vector]}, {func: 1, args: [, M.Light]}, {func: 1, args: [,,,]}, {func: 1, ret: P.Future, args: [,]}];
   function convertToFastObject(properties) {
     function MyClass() {
     }

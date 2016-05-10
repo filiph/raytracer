@@ -3507,13 +3507,13 @@
       }
     },
     initHooks_closure0: {
-      "^": "Closure:8;getUnknownTag",
+      "^": "Closure:7;getUnknownTag",
       call$2: function(o, tag) {
         return this.getUnknownTag(o, tag);
       }
     },
     initHooks_closure1: {
-      "^": "Closure:9;prototypeForTag",
+      "^": "Closure:8;prototypeForTag",
       call$1: function(tag) {
         return this.prototypeForTag(tag);
       }
@@ -3919,7 +3919,7 @@
       }
     },
     _AsyncRun__initializeScheduleImmediate_closure: {
-      "^": "Closure:10;_box_0,div,span",
+      "^": "Closure:9;_box_0,div,span",
       call$1: function(callback) {
         var t1, t2;
         ++init.globalState.topEventLoop._activeJsAsyncCount;
@@ -3956,7 +3956,7 @@
       }
     },
     _wrapJsFunctionForAsync_closure: {
-      "^": "Closure:11;$protected",
+      "^": "Closure:10;$protected",
       call$2: function(errorCode, result) {
         this.$protected(errorCode, result);
       }
@@ -4134,7 +4134,7 @@
         P._Future__propagateToListeners(this, listeners);
       }, function(error) {
         return this._completeError$2(error, null);
-      }, "_completeError$1", "call$2", "call$1", "get$_completeError", 2, 2, 12, 0],
+      }, "_completeError$1", "call$2", "call$1", "get$_completeError", 2, 2, 11, 0],
       $isFuture: 1,
       static: {
         _Future__chainForeignFuture: function(source, target) {
@@ -4287,7 +4287,7 @@
       }
     },
     _Future__chainForeignFuture_closure0: {
-      "^": "Closure:13;target",
+      "^": "Closure:12;target",
       call$2: function(error, stackTrace) {
         this.target._completeError$2(error, stackTrace);
       },
@@ -4862,7 +4862,7 @@
         this._state = 4;
       }, function(error) {
         return this._onError$2(error, null);
-      }, "_onError$1", "call$2", "call$1", "get$_onError", 2, 2, 14, 0],
+      }, "_onError$1", "call$2", "call$1", "get$_onError", 2, 2, 13, 0],
       _onDone$0: [function() {
         if (this._state === 2) {
           var hasNext = this._futureOrPrefetch;
@@ -4946,7 +4946,7 @@
       }],
       _handleError$2: [function(error, stackTrace) {
         this._addError$2(error, stackTrace);
-      }, "call$2", "get$_handleError", 4, 0, 15],
+      }, "call$2", "get$_handleError", 4, 0, 14],
       _handleDone$0: [function() {
         this._async$_close$0();
       }, "call$0", "get$_handleDone", 0, 0, 1],
@@ -5115,6 +5115,9 @@
     }
   }], ["dart.collection", "dart:collection",, P, {
     "^": "",
+    LinkedHashMap_LinkedHashMap$_literal: function(keyValuePairs, $K, $V) {
+      return H.fillLiteralMap(keyValuePairs, H.setRuntimeTypeInfo(new H.JsLinkedHashMap(0, null, null, null, null, null, 0), [$K, $V]));
+    },
     LinkedHashMap__makeEmpty: function() {
       return H.setRuntimeTypeInfo(new H.JsLinkedHashMap(0, null, null, null, null, null, 0), [null, null]);
     },
@@ -5560,7 +5563,7 @@
       $isEfficientLength: 1
     },
     Maps_mapToString_closure: {
-      "^": "Closure:5;_box_0,result",
+      "^": "Closure:15;_box_0,result",
       call$2: function(k, v) {
         var t1, t2;
         t1 = this._box_0;
@@ -5816,7 +5819,7 @@
       }
     },
     Duration_toString_sixDigits: {
-      "^": "Closure:6;",
+      "^": "Closure:5;",
       call$1: function(n) {
         if (n >= 100000)
           return "" + n;
@@ -5832,7 +5835,7 @@
       }
     },
     Duration_toString_twoDigits: {
-      "^": "Closure:6;",
+      "^": "Closure:5;",
       call$1: function(n) {
         if (n >= 10)
           return "" + n;
@@ -6041,6 +6044,9 @@
           H.Primitives_setProperty(values, t1, value);
         }
       }
+    },
+    Function: {
+      "^": "Object;"
     },
     $int: {
       "^": "num;"
@@ -7242,7 +7248,7 @@
               t5 = t3.cross$1(new M.Vector(0, -1, 0)).norm$0().$mul(0, 1.5);
               t4.right = t5;
               t4.up = t3.cross$1(t5).norm$0().$mul(0, 1.5);
-              scene = new M.Scene([new M.Plane(new M.Vector(0, 1, 0), 0, t1), new M.Sphere(1, 1, new M.Vector(0, 1, -0.25), t2), new M.Sphere(0.25, 0.5, new M.Vector(-1, 0.5, 1.5), t2)], [new M.Light(new M.Vector(-2, 2.5, 0), new M.Color(0.49, 0.07, 0.07)), new M.Light(new M.Vector(1.5, 2.5, 1.5), new M.Color(0.07, 0.07, 0.49)), new M.Light(new M.Vector(1.5, 2.5, -1.5), new M.Color(0.07, 0.49, 0.071)), new M.Light(new M.Vector(0, 3.5, 0), new M.Color(0.21, 0.21, 0.35))], t4);
+              scene = new M.Scene([new M.Plane(new M.Vector(0, 1, 0), 0, t1), new M.Sphere(1, 1, new M.Vector(0, 1, -0.25), t2), new M.Sphere(0.5, 0.25, new M.Vector(-1, 0.5, 1.5), t2)], [new M.Light(new M.Vector(-2, 2.5, 0), new M.Color(0.49, 0.07, 0.07)), new M.Light(new M.Vector(1.5, 2.5, 1.5), new M.Color(0.07, 0.07, 0.49)), new M.Light(new M.Vector(1.5, 2.5, -1.5), new M.Color(0.07, 0.49, 0.071)), new M.Light(new M.Vector(0, 3.5, 0), new M.Color(0.21, 0.21, 0.35))], t4);
               rayTracer = new R.CustomRayTracer(5, scene, ctx, width, height, 0, 0);
               t4 = new R.main_moveForward(scene);
               t2 = new R.main_moveBackward(scene);
@@ -7251,10 +7257,10 @@
               t3 = H.setRuntimeTypeInfo(new W._EventStream(window, "keydown", false), [null]);
               H.setRuntimeTypeInfo(new W._EventStreamSubscription(0, t3._target, t3._eventType, W._wrapZone(new R.main_closure(rayTracer, t4, t2, t1, t5)), false), [H.getTypeArgumentByIndex(t3, 0)])._tryResume$0();
               t3 = C.JSInt_methods._tdivFast$1(width, 2);
-              t6 = H.setRuntimeTypeInfo(new P.Point(t3, 0), [null]);
-              t3 = H.setRuntimeTypeInfo(new P.Point(t3, height), [null]);
+              t6 = H.setRuntimeTypeInfo(new P.Point(t3, 0), [P.$int]);
+              t3 = H.setRuntimeTypeInfo(new P.Point(t3, height), [P.$int]);
               t7 = C.JSInt_methods._tdivFast$1(height, 2);
-              clickMap = P.LinkedHashMap__makeLiteral([t6, t4, t3, t2, H.setRuntimeTypeInfo(new P.Point(0, t7), [null]), t1, H.setRuntimeTypeInfo(new P.Point(width, t7), [null]), t5]);
+              clickMap = P.LinkedHashMap_LinkedHashMap$_literal([t6, t4, t3, t2, H.setRuntimeTypeInfo(new P.Point(0, t7), [P.$int]), t1, H.setRuntimeTypeInfo(new P.Point(width, t7), [P.$int]), t5], [P.Point, P.$int], P.Function);
               t5 = H.setRuntimeTypeInfo(new W._EventStream(window, "click", false), [null]);
               H.setRuntimeTypeInfo(new W._EventStreamSubscription(0, t5._target, t5._eventType, W._wrapZone(new R.main_closure0(rayTracer, clickMap)), false), [H.getTypeArgumentByIndex(t5, 0)])._tryResume$0();
               $async$goto = 3;
@@ -7295,7 +7301,7 @@
         var isect, t1, d, pos, normal, reflectDir, naturalColor;
         isect = this._intersections$2(ray, scene);
         if (isect == null)
-          return C.Color_0_0_0;
+          return $.$get$Color_background();
         else {
           t1 = isect.ray;
           d = t1.dir;
@@ -7303,15 +7309,15 @@
           t1 = isect.thing;
           normal = t1.normal$1(pos);
           reflectDir = d.$sub(0, normal.$mul(0, normal.dot$1(d)).$mul(0, 2));
-          naturalColor = C.Color_0_0_0.$add(0, this._getNaturalColor$5(t1, pos, normal, reflectDir, scene));
-          return naturalColor.$add(0, depth >= this._maxDepth ? C.Color_EuX : this._traceRay$3(new M.Ray(pos, reflectDir), scene, depth + 1).scale$1(0, t1.get$surface()._reflect$1(pos)));
+          naturalColor = $.$get$Color_background().$add(0, this._getNaturalColor$5(t1, pos, normal, reflectDir, scene));
+          return naturalColor.$add(0, depth >= this._maxDepth ? $.$get$Color_grey() : this._traceRay$3(new M.Ray(pos, reflectDir), scene, depth + 1).scale$1(0, t1.get$surface()._reflect$1(pos)));
         }
       },
       _getNaturalColor$5: function(thing, pos, norm, rd, scene) {
-        return C.JSArray_methods.fold$2(scene.lights, C.Color_0_0_0, new R.CustomRayTracer__getNaturalColor_closure(this, thing, pos, norm, rd, scene));
+        return C.JSArray_methods.fold$2(scene.lights, $.$get$Color_defaultColor(), new R.CustomRayTracer__getNaturalColor_closure(this, thing, pos, norm, rd, scene));
       },
       renderAsync$0: function() {
-        var $async$goto = 0, $async$completer = new P.Completer_Completer$sync(), $async$returnValue, $async$handler = 2, $async$currentError, $async$self = this, t1, t2, t3, t4, time, t5, t6, t7, x, y, size, t8, pixels, _i, pixel;
+        var $async$goto = 0, $async$completer = new P.Completer_Completer$sync(), $async$returnValue, $async$handler = 2, $async$currentError, $async$self = this, t1, t2, t3, t4, time, t5, t6, t7, x, y, drawingColor, size, t8, pixels, _i, pixel;
         var $async$renderAsync$0 = P._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
           if ($async$errorCode === 1) {
             $async$currentError = $async$result;
@@ -7347,7 +7353,9 @@
                   ;
                 x = t2.nextInt$1(t5);
                 y = t2.nextInt$1(t6);
-                t7.fillStyle = "rgb(" + t1.call$2(x, y).toDrawingColor$0() + ")";
+                drawingColor = t1.call$2(x, y).toDrawingColor$0();
+                t7.toString;
+                t7.fillStyle = "rgba(" + drawingColor.r + ", " + drawingColor.g + ", " + drawingColor.b + ", 1)";
                 size = C.JSNumber_methods.toInt$0(Math.floor(t4.call$1($async$self.count)));
                 t8 = C.JSInt_methods._tdivFast$1(size, 2);
                 t7.fillRect(x - t8, y - t8, size, size);
@@ -7409,7 +7417,9 @@
                   ;
                 x = C.JSNumber_methods.$mod(pixel, t5);
                 y = C.JSNumber_methods.$tdiv(pixel, t5);
-                t7.fillStyle = "rgb(" + t1.call$2(x, y).toDrawingColor$0() + ")";
+                drawingColor = t1.call$2(x, y).toDrawingColor$0();
+                t7.toString;
+                t7.fillStyle = "rgba(" + drawingColor.r + ", " + drawingColor.g + ", " + drawingColor.b + ", 1)";
                 t7.fillRect(x, y, 1, 1);
                 t4 = window.performance.now();
                 if (typeof t4 !== "number") {
@@ -7469,7 +7479,7 @@
       }
     },
     CustomRayTracer__getNaturalColor_closure: {
-      "^": "Closure:5;$this,thing,pos,norm,rd,scene",
+      "^": "Closure:16;$this,thing,pos,norm,rd,scene",
       call$2: function(col, light) {
         var t1, ldis, livec, neatIsect, illum, lcolor, specular, t2, t3, scolor;
         t1 = this.pos;
@@ -7480,7 +7490,7 @@
           return col;
         else {
           illum = livec.dot$1(this.norm);
-          lcolor = J.$gt$n(illum, 0) ? light.get$color(light).scale$1(0, illum) : C.Color_0_0_0;
+          lcolor = J.$gt$n(illum, 0) ? light.get$color(light).scale$1(0, illum) : $.$get$Color_defaultColor();
           specular = livec.dot$1(this.rd.norm$0());
           if (J.$gt$n(specular, 0)) {
             t2 = light.get$color(light);
@@ -7489,35 +7499,35 @@
             H.checkNum(t3);
             scolor = t2.scale$1(0, Math.pow(specular, t3));
           } else
-            scolor = C.Color_0_0_0;
+            scolor = $.$get$Color_defaultColor();
           t2 = this.thing;
           return J.$add$ns(J.$add$ns(col, J.$mul$ns(t2.get$surface()._diffuse$1(t1), lcolor)), J.$mul$ns(t2.get$surface()._specular$1(t1), scolor));
         }
       }
     },
     CustomRayTracer_renderAsync_getPoint: {
-      "^": "Closure:16;$this",
+      "^": "Closure:17;$this",
       call$3: function(x, y, camera) {
         var t1 = this.$this;
         return camera.forward.$add(0, camera.right.$mul(0, new R.CustomRayTracer_renderAsync_getPoint_recenterX(t1).call$1(x))).$add(0, camera.up.$mul(0, new R.CustomRayTracer_renderAsync_getPoint_recenterY(t1).call$1(y))).norm$0();
       }
     },
     CustomRayTracer_renderAsync_getPoint_recenterX: {
-      "^": "Closure:7;$this",
+      "^": "Closure:6;$this",
       call$1: function(x) {
         var t1 = this.$this.screenHeight;
         return (x - t1 / 2) / 2 / t1;
       }
     },
     CustomRayTracer_renderAsync_getPoint_recenterY: {
-      "^": "Closure:7;$this",
+      "^": "Closure:6;$this",
       call$1: function(y) {
         var t1 = this.$this.screenHeight;
         return -(y - t1 / 2) / 2 / t1;
       }
     },
     CustomRayTracer_renderAsync_getColor: {
-      "^": "Closure:17;$this,getPoint",
+      "^": "Closure:18;$this,getPoint",
       call$2: function(x, y) {
         var t1, t2, t3;
         t1 = this.$this;
@@ -7527,13 +7537,13 @@
       }
     },
     CustomRayTracer_renderAsync_thisJobIsStillActive: {
-      "^": "Closure:18;$this,thisJobId",
+      "^": "Closure:19;$this,thisJobId",
       call$0: function() {
         return this.$this.activeJobId === this.thisJobId;
       }
     },
     CustomRayTracer_renderAsync_sizeFromCount: {
-      "^": "Closure:19;logMax",
+      "^": "Closure:20;logMax",
       call$1: function(count) {
         return this.logMax - Math.log(H.checkNum(count + 10));
       }
@@ -7660,27 +7670,30 @@
       }
     },
     Color: {
-      "^": "Object;r>,g<,b",
+      "^": "Object;r>,g<,b<",
       scale$1: function(_, k) {
         var t1 = J.getInterceptor$ns(k);
         return new M.Color(t1.$mul(k, this.r), t1.$mul(k, this.g), t1.$mul(k, this.b));
       },
       $add: function(_, v) {
-        return new M.Color(J.$add$ns(this.r, J.get$r$x(v)), J.$add$ns(this.g, v.get$g()), J.$add$ns(this.b, v.b));
+        return new M.Color(J.$add$ns(this.r, J.get$r$x(v)), J.$add$ns(this.g, v.get$g()), J.$add$ns(this.b, v.get$b()));
       },
       $mul: function(_, v) {
-        return new M.Color(J.$mul$ns(this.r, J.get$r$x(v)), J.$mul$ns(this.g, v.get$g()), J.$mul$ns(this.b, v.b));
+        return new M.Color(J.$mul$ns(this.r, J.get$r$x(v)), J.$mul$ns(this.g, v.get$g()), J.$mul$ns(this.b, v.get$b()));
       },
       toDrawingColor$0: function() {
         var legalize = new M.Color_toDrawingColor_closure();
-        return H.S(legalize.call$1(this.r)) + ", " + H.S(legalize.call$1(this.g)) + ", " + H.S(legalize.call$1(this.b));
+        return new M.DrawingColor(J.toInt$0$n(J.$mul$ns(legalize.call$1(this.r), 255)), J.toInt$0$n(J.$mul$ns(legalize.call$1(this.g), 255)), J.toInt$0$n(J.$mul$ns(legalize.call$1(this.b), 255)));
       }
     },
     Color_toDrawingColor_closure: {
-      "^": "Closure:20;",
+      "^": "Closure:21;",
       call$1: function(d) {
-        return J.toInt$0$n(J.$mul$ns(J.$gt$n(d, 1) ? 1 : d, 255));
+        return J.$gt$n(d, 1) ? 1 : d;
       }
+    },
+    DrawingColor: {
+      "^": "Object;r>,g<,b<"
     },
     Camera: {
       "^": "Object;pos<,forward,right,up"
@@ -7698,7 +7711,7 @@
       "^": "Object;things,lights,camera"
     },
     Sphere: {
-      "^": "Object;radius2,radius,center,surface<",
+      "^": "Object;radius,radius2,center,surface<",
       normal$1: function(pos) {
         return pos.$sub(0, this.center).norm$0();
       },
@@ -7747,13 +7760,13 @@
     closure: {
       "^": "Closure:2;",
       call$1: function(_) {
-        return C.Color_1_1_1;
+        return $.$get$Color_white();
       }
     },
     closure0: {
       "^": "Closure:2;",
       call$1: function(_) {
-        return C.Color_EuX;
+        return $.$get$Color_grey();
       }
     },
     closure1: {
@@ -7763,18 +7776,18 @@
       }
     },
     closure2: {
-      "^": "Closure:21;",
+      "^": "Closure:22;",
       call$1: function(pos) {
         if (C.JSInt_methods.$mod(J.floor$0$n(pos.z) + J.floor$0$n(pos.x), 2) !== 0)
-          return C.Color_1_1_1;
+          return $.$get$Color_white();
         else
-          return C.Color_0_0_0;
+          return $.$get$Color_black();
       }
     },
     closure3: {
       "^": "Closure:2;",
       call$1: function(_) {
-        return C.Color_1_1_1;
+        return $.$get$Color_white();
       }
     },
     closure4: {
@@ -8011,9 +8024,6 @@
   C.C__DelayedDone = new P._DelayedDone();
   C.C__JSRandom = new P._JSRandom();
   C.C__RootZone = new P._RootZone();
-  C.Color_0_0_0 = new M.Color(0, 0, 0);
-  C.Color_1_1_1 = new M.Color(1, 1, 1);
-  C.Color_EuX = new M.Color(0.5, 0.5, 0.5);
   C.Duration_0 = new P.Duration(0);
   C.JS_CONST_0 = function(hooks) {
   if (typeof dartExperimentalFixupGetTag != "function") return hooks;
@@ -8262,7 +8272,17 @@
     return [];
   }, "_toStringVisiting", "CustomRayTracer__random", "$get$CustomRayTracer__random", function() {
     return P.Random_Random(null);
-  }, "CustomRayTracer__random", "Surfaces_shiny", "$get$Surfaces_shiny", function() {
+  }, "CustomRayTracer__random", "Color_white", "$get$Color_white", function() {
+    return new M.Color(1, 1, 1);
+  }, "Color_white", "Color_grey", "$get$Color_grey", function() {
+    return new M.Color(0.5, 0.5, 0.5);
+  }, "Color_grey", "Color_black", "$get$Color_black", function() {
+    return new M.Color(0, 0, 0);
+  }, "Color_black", "Color_background", "$get$Color_background", function() {
+    return $.$get$Color_black();
+  }, "Color_background", "Color_defaultColor", "$get$Color_defaultColor", function() {
+    return $.$get$Color_black();
+  }, "Color_defaultColor", "Surfaces_shiny", "$get$Surfaces_shiny", function() {
     return new M.CustomSurface(new M.closure(), new M.closure0(), new M.closure1(), 250);
   }, "Surfaces_shiny", "Surfaces_checkerboard", "$get$Surfaces_checkerboard", function() {
     return new M.CustomSurface(new M.closure2(), new M.closure3(), new M.closure4(), 150);
@@ -8270,7 +8290,7 @@
   Isolate = Isolate.$finishIsolateConstructor(Isolate);
   $ = new Isolate();
   init.metadata = [null];
-  init.types = [{func: 1}, {func: 1, v: true}, {func: 1, args: [,]}, {func: 1, v: true, args: [{func: 1, v: true}]}, {func: 1, args: [, P.StackTrace]}, {func: 1, args: [,,]}, {func: 1, ret: P.String, args: [P.$int]}, {func: 1, ret: P.num, args: [,]}, {func: 1, args: [, P.String]}, {func: 1, args: [P.String]}, {func: 1, args: [{func: 1, v: true}]}, {func: 1, args: [P.$int,,]}, {func: 1, v: true, args: [,], opt: [P.StackTrace]}, {func: 1, args: [,], opt: [,]}, {func: 1, v: true, args: [P.Object], opt: [P.StackTrace]}, {func: 1, v: true, args: [, P.StackTrace]}, {func: 1, ret: M.Vector, args: [P.$int, P.$int, M.Camera]}, {func: 1, ret: M.Color, args: [,,]}, {func: 1, ret: P.bool}, {func: 1, ret: P.num, args: [P.$int]}, {func: 1, args: [P.num]}, {func: 1, args: [M.Vector]}];
+  init.types = [{func: 1}, {func: 1, v: true}, {func: 1, args: [,]}, {func: 1, v: true, args: [{func: 1, v: true}]}, {func: 1, args: [, P.StackTrace]}, {func: 1, ret: P.String, args: [P.$int]}, {func: 1, ret: P.num, args: [,]}, {func: 1, args: [, P.String]}, {func: 1, args: [P.String]}, {func: 1, args: [{func: 1, v: true}]}, {func: 1, args: [P.$int,,]}, {func: 1, v: true, args: [,], opt: [P.StackTrace]}, {func: 1, args: [,], opt: [,]}, {func: 1, v: true, args: [P.Object], opt: [P.StackTrace]}, {func: 1, v: true, args: [, P.StackTrace]}, {func: 1, args: [,,]}, {func: 1, args: [, M.Light]}, {func: 1, ret: M.Vector, args: [P.$int, P.$int, M.Camera]}, {func: 1, ret: M.Color, args: [,,]}, {func: 1, ret: P.bool}, {func: 1, ret: P.num, args: [P.$int]}, {func: 1, args: [P.num]}, {func: 1, args: [M.Vector]}];
   function convertToFastObject(properties) {
     function MyClass() {
     }
