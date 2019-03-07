@@ -68,7 +68,7 @@ class CustomRayTracer {
 
   _getReflectionColor(Thing thing, Vector pos, Vector normal, Vector rd,
       Scene scene, int depth) {
-    var color = _traceRay(new Ray(pos, rd), scene, depth + 1);
+    var color = _traceRay(Ray(pos, rd), scene, depth + 1);
     var scale = thing.surface.reflect(pos);
     return color.scale(scale);
   }
@@ -78,7 +78,7 @@ class CustomRayTracer {
     var addLight = (col, Light light) {
       var ldis = light.pos - pos;
       var livec = ldis.norm();
-      var neatIsect = _testRay(new Ray(pos, livec), scene);
+      var neatIsect = _testRay(Ray(pos, livec), scene);
       var isInShadow = (neatIsect == null) ? false : (neatIsect <= ldis.mag());
       if (isInShadow) {
         return col;
@@ -98,7 +98,7 @@ class CustomRayTracer {
     return scene.lights.fold(Color.defaultColor, addLight);
   }
 
-  static final _random = new Random();
+  static final _random = Random();
 
   renderAsync() async {
     Vector getPoint(int x, int y, Camera camera) {
@@ -111,7 +111,7 @@ class CustomRayTracer {
     }
 
     Color getColor(x, y) => _traceRay(
-        new Ray(scene.camera.pos, getPoint(x, y, scene.camera)), scene, 0);
+        Ray(scene.camera.pos, getPoint(x, y, scene.camera)), scene, 0);
 
     activeJobId = _random.nextInt(1 << 16);
     var thisJobId = activeJobId;
@@ -148,7 +148,7 @@ class CustomRayTracer {
 
     if (!thisJobIsStillActive()) return;
 
-    var pixels = new List<int>.generate(screenHeight * screenWidth, (i) => i);
+    var pixels = List<int>.generate(screenHeight * screenWidth, (i) => i);
     pixels.shuffle(_random);
     for (int pixel in pixels) {
       int x = pixel % screenWidth;
@@ -174,22 +174,25 @@ main() async {
   int width = (window.innerWidth * 0.99).floor();
   int height = (window.innerHeight * 0.99).floor();
 
-  var canvas = new CanvasElement(width: width, height: height);
+  var canvas = CanvasElement(width: width, height: height);
   document.body.append(canvas);
   var ctx = canvas.context2D;
 
   Scene scene = defaultScene();
-  var rayTracer = new CustomRayTracer(scene, ctx, width, height);
+  var rayTracer = CustomRayTracer(scene, ctx, width, height);
 
   void moveForward() {
     scene.camera.pos = scene.camera.pos + scene.camera.forward;
   }
+
   void moveBackward() {
     scene.camera.pos = scene.camera.pos - scene.camera.forward;
   }
+
   void moveLeft() {
     scene.camera.pos = scene.camera.pos - scene.camera.right;
   }
+
   void moveRight() {
     scene.camera.pos = scene.camera.pos + scene.camera.right;
   }
@@ -215,10 +218,10 @@ main() async {
   });
 
   var clickMap = <Point<int>, Function>{
-    new Point<int>(width ~/ 2, 0): moveForward,
-    new Point<int>(width ~/ 2, height): moveBackward,
-    new Point<int>(0, height ~/ 2): moveLeft,
-    new Point<int>(width, height ~/ 2): moveRight
+    Point<int>(width ~/ 2, 0): moveForward,
+    Point<int>(width ~/ 2, height): moveBackward,
+    Point<int>(0, height ~/ 2): moveLeft,
+    Point<int>(width, height ~/ 2): moveRight
   };
 
   window.onClick.listen((e) {

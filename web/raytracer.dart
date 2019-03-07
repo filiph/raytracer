@@ -14,9 +14,9 @@ class Vector {
   final num z;
   Vector(this.x, this.y, this.z);
 
-  operator *(num k) => new Vector(k * x, k * y, k * z);
-  operator -(Vector o) => new Vector(x - o.x, y - o.y, z - o.z);
-  operator +(Vector o) => new Vector(x + o.x, y + o.y, z + o.z);
+  operator *(num k) => Vector(k * x, k * y, k * z);
+  operator -(Vector o) => Vector(x - o.x, y - o.y, z - o.z);
+  operator +(Vector o) => Vector(x + o.x, y + o.y, z + o.z);
   dot(Vector o) => x * o.x + y * o.y + z * o.z;
   mag() => sqrt(x * x + y * y + z * z);
   norm() {
@@ -24,8 +24,9 @@ class Vector {
     var div = (mag == 0) ? double.infinity : 1.0 / mag;
     return this * div;
   }
+
   cross(Vector o) =>
-      new Vector(y * o.z - z * o.y, z * o.x - x * o.z, x * o.y - y * o.x);
+      Vector(y * o.z - z * o.y, z * o.x - x * o.z, x * o.y - y * o.x);
 }
 
 class Color {
@@ -34,19 +35,19 @@ class Color {
   final double b;
   const Color(this.r, this.g, this.b);
 
-  scale(double k) => new Color(k * r, k * g, k * b);
-  operator +(Color v) => new Color(r + v.r, g + v.g, b + v.b);
-  operator *(Color v) => new Color(r * v.r, g * v.g, b * v.b);
+  scale(double k) => Color(k * r, k * g, k * b);
+  operator +(Color v) => Color(r + v.r, g + v.g, b + v.b);
+  operator *(Color v) => Color(r * v.r, g * v.g, b * v.b);
 
-  static var white = new Color(1.0, 1.0, 1.0);
-  static var grey = new Color(0.5, 0.5, 0.5);
-  static var black = new Color(0.0, 0.0, 0.0);
+  static var white = Color(1.0, 1.0, 1.0);
+  static var grey = Color(0.5, 0.5, 0.5);
+  static var black = Color(0.0, 0.0, 0.0);
   static var background = Color.black;
   static var defaultColor = Color.black;
 
   toDrawingColor() {
     var legalize = (num d) => d > 1 ? 1 : d;
-    return new DrawingColor(
+    return DrawingColor(
         r: (legalize(r) * 255).toInt(),
         g: (legalize(g) * 255).toInt(),
         b: (legalize(b) * 255).toInt());
@@ -67,7 +68,7 @@ class Camera {
   Vector up;
 
   Camera(this.pos, Vector lookAt) {
-    var down = new Vector(0.0, -1.0, 0.0);
+    var down = Vector(0.0, -1.0, 0.0);
     forward = (lookAt - pos).norm();
     right = forward.cross(down).norm() * 1.5;
     up = forward.cross(right).norm() * 1.5;
@@ -137,7 +138,7 @@ class Sphere implements Thing {
     if (dist == 0) {
       return null;
     } else {
-      return new Intersection(this, ray, dist);
+      return Intersection(this, ray, dist);
     }
   }
 }
@@ -154,7 +155,7 @@ class Plane implements Thing {
       return null;
     } else {
       var dist = (norm.dot(ray.start) + offset) / (-denom);
-      return new Intersection(this, ray, dist);
+      return Intersection(this, ray, dist);
     }
   }
 
@@ -165,8 +166,8 @@ class Plane implements Thing {
 // Dart programs don't normally use classes in this way.
 class Surfaces {
   static final Surface shiny =
-      new CustomSurface((_) => Color.white, (_) => Color.grey, (_) => 0.7, 250);
-  static final Surface checkerboard = new CustomSurface(
+      CustomSurface((_) => Color.white, (_) => Color.grey, (_) => 0.7, 250);
+  static final Surface checkerboard = CustomSurface(
       (Vector pos) {
         if ((pos.z.floor() + pos.x.floor()) % 2 != 0) {
           return Color.white;
@@ -245,7 +246,7 @@ class RayTracer {
 
   _getReflectionColor(Thing thing, Vector pos, Vector normal, Vector rd,
       Scene scene, int depth) {
-    var color = _traceRay(new Ray(pos, rd), scene, depth + 1);
+    var color = _traceRay(Ray(pos, rd), scene, depth + 1);
     var scale = thing.surface.reflect(pos);
     return color.scale(scale);
   }
@@ -255,7 +256,7 @@ class RayTracer {
     var addLight = (col, Light light) {
       var ldis = light.pos - pos;
       var livec = ldis.norm();
-      var neatIsect = _testRay(new Ray(pos, livec), scene);
+      var neatIsect = _testRay(Ray(pos, livec), scene);
       var isInShadow = (neatIsect == null) ? false : (neatIsect <= ldis.mag());
       if (isInShadow) {
         return col;
@@ -288,7 +289,7 @@ class RayTracer {
     for (var y = 0; y < screenHeight; y++) {
       for (var x = 0; x < screenWidth; x++) {
         var color = _traceRay(
-            new Ray(scene.camera.pos, getPoint(x, y, scene.camera)), scene, 0);
+            Ray(scene.camera.pos, getPoint(x, y, scene.camera)), scene, 0);
         var c = color.toDrawingColor();
         ctx.fillStyle = "rgb(${c.r}, ${c.g}, ${c.b})";
         ctx.fillRect(x, y, x + 1, y + 1);
@@ -297,16 +298,16 @@ class RayTracer {
   }
 }
 
-defaultScene() => new Scene([
-      new Plane(new Vector(0.0, 1.0, 0.0), 0.0, Surfaces.checkerboard),
-      new Sphere(new Vector(0.0, 1.0, -0.25), 1.0, Surfaces.shiny),
-      new Sphere(new Vector(-1.0, 0.5, 1.5), 0.5, Surfaces.shiny)
+defaultScene() => Scene([
+      Plane(Vector(0.0, 1.0, 0.0), 0.0, Surfaces.checkerboard),
+      Sphere(Vector(0.0, 1.0, -0.25), 1.0, Surfaces.shiny),
+      Sphere(Vector(-1.0, 0.5, 1.5), 0.5, Surfaces.shiny)
     ], [
-      new Light(new Vector(-2.0, 2.5, 0.0), new Color(0.49, 0.07, 0.07)),
-      new Light(new Vector(1.5, 2.5, 1.5), new Color(0.07, 0.07, 0.49)),
-      new Light(new Vector(1.5, 2.5, -1.5), new Color(0.07, 0.49, 0.071)),
-      new Light(new Vector(0.0, 3.5, 0.0), new Color(0.21, 0.21, 0.35))
-    ], new Camera(new Vector(3.0, 2.0, 4.0), new Vector(-1.0, 0.5, 0.0)));
+      Light(Vector(-2.0, 2.5, 0.0), Color(0.49, 0.07, 0.07)),
+      Light(Vector(1.5, 2.5, 1.5), Color(0.07, 0.07, 0.49)),
+      Light(Vector(1.5, 2.5, -1.5), Color(0.07, 0.49, 0.071)),
+      Light(Vector(0.0, 3.5, 0.0), Color(0.21, 0.21, 0.35))
+    ], Camera(Vector(3.0, 2.0, 4.0), Vector(-1.0, 0.5, 0.0)));
 
 void main() {
   int width = 256;
@@ -325,9 +326,9 @@ void main() {
     var ctx = canvas.context2D;
     ctx.clearRect(0, 0, width, height);
     // Take the time to show the above to user.
-    await new Future.delayed(new Duration(milliseconds: 100));
+    await Future.delayed(Duration(milliseconds: 100));
     var start = window.performance.now();
-    var rayTracer = new RayTracer();
+    var rayTracer = RayTracer();
     rayTracer.render(defaultScene(), ctx, width, height);
     var time = window.performance.now() - start;
     info.text = "Rendered in ${time.round()} ms.";
