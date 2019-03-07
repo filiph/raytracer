@@ -1,7 +1,7 @@
 // Code from github.com/Microsoft/TypeScriptSamples/blob/master/raytracer/
 // Reformated to fit in 80 character width. Added start button functionality
 // and basic performance testing.
-var Vector = (function () {
+var Vector = /** @class */ (function () {
     function Vector(x, y, z) {
         this.x = x;
         this.y = y;
@@ -32,7 +32,7 @@ var Vector = (function () {
     };
     return Vector;
 }());
-var Color = (function () {
+var Color = /** @class */ (function () {
     function Color(r, g, b) {
         this.r = r;
         this.g = g;
@@ -62,7 +62,7 @@ var Color = (function () {
     Color.defaultColor = Color.black;
     return Color;
 }());
-var Camera = (function () {
+var Camera = /** @class */ (function () {
     function Camera(pos, lookAt) {
         this.pos = pos;
         var down = new Vector(0.0, -1.0, 0.0);
@@ -72,7 +72,7 @@ var Camera = (function () {
     }
     return Camera;
 }());
-var Sphere = (function () {
+var Sphere = /** @class */ (function () {
     function Sphere(center, radius, surface) {
         this.center = center;
         this.surface = surface;
@@ -100,7 +100,7 @@ var Sphere = (function () {
     };
     return Sphere;
 }());
-var Plane = (function () {
+var Plane = /** @class */ (function () {
     function Plane(norm, offset, surface) {
         this.surface = surface;
         this.normal = function (pos) { return norm; };
@@ -146,7 +146,7 @@ var Surfaces;
         roughness: 150
     };
 })(Surfaces || (Surfaces = {}));
-var RayTracer = (function () {
+var RayTracer = /** @class */ (function () {
     function RayTracer() {
         this.maxDepth = 5;
     }

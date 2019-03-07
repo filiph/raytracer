@@ -1,4 +1,7 @@
-<!DOCTYPE html><html><head>
+<!DOCTYPE html>
+
+<html>
+<head>
     <meta charset="utf-8">
     <title>Raytracer: TypeScript &amp; Dart</title>
     <meta name="viewport" content="width=device-width">
@@ -348,8 +351,8 @@ class RayTracer {
           { start: scene.camera.pos,
             dir: getPoint(x, y, scene.camera) }, scene, 0);
         var c = Color.toDrawingColor(color);
-        ctx.fillStyle = "rgb(" + String(c.r) + ", " + String(c.g) +
-          ", " + String(c.b) + ")";
+        ctx.fillStyle = &quot;rgb(&quot; + String(c.r) + &quot;, &quot; + String(c.g) +
+          &quot;, &quot; + String(c.b) + &quot;)&quot;;
         ctx.fillRect(x, y, x + 1, y + 1);
       }
     }
@@ -374,18 +377,18 @@ function exec() {
   let height = 256;
 
   let canvas : HTMLCanvasElement =
-      &lt;HTMLCanvasElement&gt;document.querySelector("#ts-canvas");
-  let info : Element = document.querySelector("#ts-info");
+      &lt;HTMLCanvasElement&gt;document.querySelector(&quot;#ts-canvas&quot;);
+  let info : Element = document.querySelector(&quot;#ts-info&quot;);
   let button : HTMLButtonElement =
-      &lt;HTMLButtonElement&gt;document.querySelector("#ts-button");
+      &lt;HTMLButtonElement&gt;document.querySelector(&quot;#ts-button&quot;);
 
   let i = 0;
   let rendersPerBatch = 1;  // Change to run several raytraces on first click.
   let times = [];
 
   button.onclick = (e) =&gt; {
-    info.textContent = "Rendering...";
-    let ctx = canvas.getContext("2d");
+    info.textContent = &quot;Rendering...&quot;;
+    let ctx = canvas.getContext(&quot;2d&quot;);
     ctx.clearRect(0, 0, width, height);
     // Take the time to show the above to user.
     window.setTimeout((_) =&gt; {
@@ -417,9 +420,9 @@ exec();
 
 library ts_raytracer;
 
-import 'dart:async';
-import 'dart:html';
-import 'dart:math';
+import &#x27;dart:async&#x27;;
+import &#x27;dart:html&#x27;;
+import &#x27;dart:math&#x27;;
 
 class Vector {
   final num x;
@@ -427,17 +430,17 @@ class Vector {
   final num z;
   Vector(this.x, this.y, this.z);
 
-  operator *(num k) =&gt; new Vector(k * x, k * y, k * z);
-  operator -(Vector o) =&gt; new Vector(x - o.x, y - o.y, z - o.z);
-  operator +(Vector o) =&gt; new Vector(x + o.x, y + o.y, z + o.z);
-  dot(Vector o) =&gt; x * o.x + y * o.y + z * o.z;
-  mag() =&gt; sqrt(x * x + y * y + z * z);
+  operator *(num k) =&#x3E; new Vector(k * x, k * y, k * z);
+  operator -(Vector o) =&#x3E; new Vector(x - o.x, y - o.y, z - o.z);
+  operator +(Vector o) =&#x3E; new Vector(x + o.x, y + o.y, z + o.z);
+  dot(Vector o) =&#x3E; x * o.x + y * o.y + z * o.z;
+  mag() =&#x3E; sqrt(x * x + y * y + z * z);
   norm() {
     var mag = this.mag();
     var div = (mag == 0) ? double.INFINITY : 1.0 / mag;
     return this * div;
   }
-  cross(Vector o) =&gt;
+  cross(Vector o) =&#x3E;
       new Vector(y * o.z - z * o.y, z * o.x - x * o.z, x * o.y - y * o.x);
 }
 
@@ -447,9 +450,9 @@ class Color {
   final double b;
   const Color(this.r, this.g, this.b);
 
-  scale(double k) =&gt; new Color(k * r, k * g, k * b);
-  operator +(Color v) =&gt; new Color(r + v.r, g + v.g, b + v.b);
-  operator *(Color v) =&gt; new Color(r * v.r, g * v.g, b * v.b);
+  scale(double k) =&#x3E; new Color(k * r, k * g, k * b);
+  operator +(Color v) =&#x3E; new Color(r + v.r, g + v.g, b + v.b);
+  operator *(Color v) =&#x3E; new Color(r * v.r, g * v.g, b * v.b);
 
   static var white = new Color(1.0, 1.0, 1.0);
   static var grey = new Color(0.5, 0.5, 0.5);
@@ -458,7 +461,7 @@ class Color {
   static var defaultColor = Color.black;
 
   toDrawingColor() {
-    var legalize = (num d) =&gt; d &gt; 1 ? 1 : d;
+    var legalize = (num d) =&#x3E; d &#x3E; 1 ? 1 : d;
     return new DrawingColor(
         r: (legalize(r) * 255).toInt(),
         g: (legalize(g) * 255).toInt(),
@@ -520,8 +523,8 @@ class Light {
 }
 
 class Scene {
-  List&lt;Thing&gt; things;
-  List&lt;Light&gt; lights;
+  List&#x3C;Thing&#x3E; things;
+  List&#x3C;Light&#x3E; lights;
   Camera camera;
   Scene(this.things, this.lights, this.camera);
 }
@@ -536,14 +539,14 @@ class Sphere implements Thing {
       : radius = radius,
         radius2 = radius * radius;
 
-  Vector normal(Vector pos) =&gt; (pos - center).norm();
+  Vector normal(Vector pos) =&#x3E; (pos - center).norm();
   intersect(Ray ray) {
     var eo = center - ray.start;
     var v = eo.dot(ray.dir);
     var dist = 0.0;
-    if (v &gt;= 0) {
+    if (v &#x3E;= 0) {
       var disc = radius2 - (eo.dot(eo) - v * v);
-      if (disc &gt;= 0) {
+      if (disc &#x3E;= 0) {
         dist = v - sqrt(disc);
       }
     }
@@ -563,7 +566,7 @@ class Plane implements Thing {
 
   Intersection intersect(Ray ray) {
     var denom = norm.dot(ray.dir);
-    if (denom &gt; 0) {
+    if (denom &#x3E; 0) {
       return null;
     } else {
       var dist = (norm.dot(ray.start) + offset) / (-denom);
@@ -571,14 +574,14 @@ class Plane implements Thing {
     }
   }
 
-  Vector normal(Vector pos) =&gt; norm;
+  Vector normal(Vector pos) =&#x3E; norm;
 }
 
-// Ugh. We're trying to emulate 'module' here, without a separate file.
-// Dart programs don't normally use classes in this way.
+// Ugh. We&#x27;re trying to emulate &#x27;module&#x27; here, without a separate file.
+// Dart programs don&#x27;t normally use classes in this way.
 class Surfaces {
   static final Surface shiny =
-      new CustomSurface((_) =&gt; Color.white, (_) =&gt; Color.grey, (_) =&gt; 0.7, 250);
+      new CustomSurface((_) =&#x3E; Color.white, (_) =&#x3E; Color.grey, (_) =&#x3E; 0.7, 250);
   static final Surface checkerboard = new CustomSurface(
       (Vector pos) {
         if ((pos.z.floor() + pos.x.floor()) % 2 != 0) {
@@ -587,7 +590,7 @@ class Surfaces {
           return Color.black;
         }
       },
-      (_) =&gt; Color.white,
+      (_) =&#x3E; Color.white,
       (pos) {
         if ((pos.z.floor() + pos.x.floor()) % 2 != 0) {
           return 0.1;
@@ -603,9 +606,9 @@ class CustomSurface implements Surface {
   final int roughness;
   CustomSurface(this._diffuse, this._specular, this._reflect, this.roughness);
 
-  Color diffuse(Vector pos) =&gt; _diffuse(pos);
-  Color specular(Vector pos) =&gt; _specular(pos);
-  double reflect(Vector pos) =&gt; _reflect(pos);
+  Color diffuse(Vector pos) =&#x3E; _diffuse(pos);
+  Color specular(Vector pos) =&#x3E; _specular(pos);
+  double reflect(Vector pos) =&#x3E; _reflect(pos);
 }
 
 class RayTracer {
@@ -616,7 +619,7 @@ class RayTracer {
     Intersection closestInter;
     for (Thing thing in scene.things) {
       Intersection inter = thing.intersect(ray);
-      if (inter != null &amp;&amp; inter.dist &lt; closest) {
+      if (inter != null &#x26;&#x26; inter.dist &#x3C; closest) {
         closestInter = inter;
         closest = inter.dist;
       }
@@ -649,7 +652,7 @@ class RayTracer {
     var reflectDir = d - normal * normal.dot(d) * 2.0;
     var naturalColor = Color.background +
         _getNaturalColor(isect.thing, pos, normal, reflectDir, scene);
-    var reflectedColor = (depth &gt;= _maxDepth)
+    var reflectedColor = (depth &#x3E;= _maxDepth)
         ? Color.grey
         : _getReflectionColor(
             isect.thing, pos, normal, reflectDir, scene, depth);
@@ -669,15 +672,15 @@ class RayTracer {
       var ldis = light.pos - pos;
       var livec = ldis.norm();
       var neatIsect = _testRay(new Ray(pos, livec), scene);
-      var isInShadow = (neatIsect == null) ? false : (neatIsect &lt;= ldis.mag());
+      var isInShadow = (neatIsect == null) ? false : (neatIsect &#x3C;= ldis.mag());
       if (isInShadow) {
         return col;
       } else {
         var illum = livec.dot(norm);
         var lcolor =
-            (illum &gt; 0) ? light.color.scale(illum) : Color.defaultColor;
+            (illum &#x3E; 0) ? light.color.scale(illum) : Color.defaultColor;
         var specular = livec.dot(rd.norm());
-        var scolor = (specular &gt; 0)
+        var scolor = (specular &#x3E; 0)
             ? light.color.scale(pow(specular, thing.surface.roughness))
             : Color.defaultColor;
         return col +
@@ -690,27 +693,27 @@ class RayTracer {
 
   render(scene, ctx, screenWidth, screenHeight) {
     var getPoint = (x, y, camera) {
-      var recenterX = (x) =&gt; (x - (screenWidth / 2.0)) / 2.0 / screenWidth;
-      var recenterY = (y) =&gt; -(y - (screenHeight / 2.0)) / 2.0 / screenHeight;
+      var recenterX = (x) =&#x3E; (x - (screenWidth / 2.0)) / 2.0 / screenWidth;
+      var recenterY = (y) =&#x3E; -(y - (screenHeight / 2.0)) / 2.0 / screenHeight;
       return (camera.forward +
               camera.right * recenterX(x) +
               camera.up * recenterY(y))
           .norm();
     };
 
-    for (var y = 0; y &lt; screenHeight; y++) {
-      for (var x = 0; x &lt; screenWidth; x++) {
+    for (var y = 0; y &#x3C; screenHeight; y++) {
+      for (var x = 0; x &#x3C; screenWidth; x++) {
         var color = _traceRay(
             new Ray(scene.camera.pos, getPoint(x, y, scene.camera)), scene, 0);
         var c = color.toDrawingColor();
-        ctx.fillStyle = "rgb(${c.r}, ${c.g}, ${c.b})";
+        ctx.fillStyle = &#x22;rgb(${c.r}, ${c.g}, ${c.b})&#x22;;
         ctx.fillRect(x, y, x + 1, y + 1);
       }
     }
   }
 }
 
-defaultScene() =&gt; new Scene([
+defaultScene() =&#x3E; new Scene([
       new Plane(new Vector(0.0, 1.0, 0.0), 0.0, Surfaces.checkerboard),
       new Sphere(new Vector(0.0, 1.0, -0.25), 1.0, Surfaces.shiny),
       new Sphere(new Vector(-1.0, 0.5, 1.5), 0.5, Surfaces.shiny)
@@ -725,16 +728,16 @@ void main() {
   int width = 256;
   int height = 256;
 
-  CanvasElement canvas = querySelector("#dart-canvas");
-  Element info = querySelector("#dart-info");
-  ButtonElement button = querySelector("#dart-button");
+  CanvasElement canvas = querySelector(&#x22;#dart-canvas&#x22;);
+  Element info = querySelector(&#x22;#dart-info&#x22;);
+  ButtonElement button = querySelector(&#x22;#dart-button&#x22;);
 
   int i = 0;
   int rendersPerBatch = 1; // Change to run several raytraces on first click.
   var times = [];
 
   button.onClick.listen((_) async {
-    info.text = "Rendering...";
+    info.text = &#x22;Rendering...&#x22;;
     var ctx = canvas.context2D;
     ctx.clearRect(0, 0, width, height);
     // Take the time to show the above to user.
@@ -743,11 +746,11 @@ void main() {
     var rayTracer = new RayTracer();
     rayTracer.render(defaultScene(), ctx, width, height);
     var time = window.performance.now() - start;
-    info.text = "Rendered in ${time.round()} ms.";
+    info.text = &#x22;Rendered in ${time.round()} ms.&#x22;;
     times.add(time);
     print(times);
     i++;
-    if (i &lt; rendersPerBatch) button.click();
+    if (i &#x3C; rendersPerBatch) button.click();
   });
 }
 
@@ -756,20 +759,18 @@ void main() {
     </div>
 
     <!-- TypeScript -->
-    <script defer="" src="raytracer.js"></script>
+    <script defer src="raytracer.js"></script>
 
     <!-- Dart -->
-    <script defer="" src="raytracer.dart.js"></script>
-    
+    <script defer src="raytracer.dart.js"></script>
 
     <!-- Code highlighting -->
-    <script defer="" src="highlight.pack.js"></script>
-    <script defer="">
+    <script defer src="highlight.pack.js"></script>
+    <script defer>
         window.addEventListener('load', function () {
             hljs.initHighlighting();
         });
     </script>
 
-
-
-</body></html>
+</body>
+</html>
