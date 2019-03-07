@@ -21,7 +21,7 @@ class Vector {
   mag() => sqrt(x * x + y * y + z * z);
   norm() {
     var mag = this.mag();
-    var div = (mag == 0) ? double.INFINITY : 1.0 / mag;
+    var div = (mag == 0) ? double.infinity : 1.0 / mag;
     return this * div;
   }
   cross(Vector o) =>
@@ -199,7 +199,7 @@ class RayTracer {
   int _maxDepth = 5;
 
   _intersections(Ray ray, Scene scene) {
-    double closest = double.INFINITY;
+    double closest = double.infinity;
     Intersection closestInter;
     for (Thing thing in scene.things) {
       Intersection inter = thing.intersect(ray);

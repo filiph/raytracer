@@ -22,7 +22,7 @@ class CustomRayTracer {
   }
 
   _intersections(Ray ray, Scene scene) {
-    double closest = double.INFINITY;
+    double closest = double.infinity;
     Intersection closestInter;
     for (Thing thing in scene.things) {
       Intersection inter = thing.intersect(ray);

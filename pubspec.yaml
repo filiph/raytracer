@@ -1,14 +1,14 @@
 name: raytracer
-version: 0.2.0
-author: Demis Bellot <demis.bellot@gmail.com>
+version: 0.3.0
+authors:
+  - Demis Bellot <demis.bellot@gmail.com>
+  - Filip Hracek <filip.hracek@gmail.com>
 description: TypeScript's Ray Tracer ported to Dart
 homepage: https://github.com/filiph/raytracer
+
+environment:
+  sdk: '>=2.2.0 <3.0.0'
+
 dev_dependencies:
-  browser: '>=0.10.0 <0.11.0'
-  dart_to_js_script_rewriter: ^1.0.1
-transformers:
-  - dart_to_js_script_rewriter
-  - $dart2js:
-      checked: false
-      minify: false
-      #commandLineOptions: ['--trust-type-annotations', '--trust-primitives']
+  build_runner: ^1.1.2
+  build_web_compilers: ^1.0.0

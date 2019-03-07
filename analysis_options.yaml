@@ -1,8 +1,5 @@
-analyzer:
-  strong-mode: true
 linter:
   rules:
-#    - always_declare_return_types
     - avoid_as
     - avoid_empty_else
     - avoid_init_to_null
@@ -16,7 +13,6 @@ linter:
     - library_prefixes
     - non_constant_identifier_names
     - one_member_abstracts
-    - overriden_field
     - package_api_docs
     - package_names
     - package_prefixed_library_names
@@ -24,7 +20,5 @@ linter:
     - slash_for_doc_comments
     - sort_constructors_first
     - sort_unnamed_constructors_first
-    - super_goes_last
     - type_init_formals
-    - unnecessary_brace_in_string_interp
     - unnecessary_getters_setters
