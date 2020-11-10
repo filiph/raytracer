@@ -231,7 +231,7 @@ var RayTracer = /** @class */ (function () {
                 var c = Color.toDrawingColor(color);
                 ctx.fillStyle = "rgb(" + String(c.r) + ", " + String(c.g) +
                     ", " + String(c.b) + ")";
-                ctx.fillRect(x, y, x + 1, y + 1);
+                ctx.fillRect(x, y, 1, 1);
             }
         }
     };
