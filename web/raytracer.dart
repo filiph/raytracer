@@ -1,6 +1,5 @@
 /// Line-for-line port of the TypeScript raytracer to idiomatic Dart. Type
-/// information that was missing in the TypeScript version was intentionally
-/// left out here, too.
+/// information added. This code is null safe.
 
 library ts_raytracer;
 
@@ -59,14 +58,14 @@ class DrawingColor {
   final int r;
   final int g;
   final int b;
-  DrawingColor({required this.r, required this.g, required this.b});
+  const DrawingColor({required this.r, required this.g, required this.b});
 }
 
 class Camera {
   Vector pos;
-  Vector forward;
-  Vector right;
-  Vector up;
+  final Vector forward;
+  final Vector right;
+  final Vector up;
 
   factory Camera(Vector pos, Vector lookAt) {
     var down = Vector(0.0, -1.0, 0.0);
@@ -80,16 +79,18 @@ class Camera {
 }
 
 class Ray {
-  Vector start;
-  Vector dir;
-  Ray(this.start, this.dir);
+  final Vector start;
+  final Vector dir;
+
+  const Ray(this.start, this.dir);
 }
 
 class Intersection {
-  Thing thing;
-  Ray ray;
-  double dist;
-  Intersection(this.thing, this.ray, this.dist);
+  final Thing thing;
+  final Ray ray;
+  final double dist;
+
+  const Intersection(this.thing, this.ray, this.dist);
 }
 
 abstract class Surface {
@@ -106,25 +107,27 @@ abstract class Thing {
 }
 
 class Light {
-  Vector pos;
-  Color color;
-  Light(this.pos, this.color);
+  final Vector pos;
+  final Color color;
+
+  const Light(this.pos, this.color);
 }
 
 class Scene {
-  List<Thing> things;
-  List<Light> lights;
-  Camera camera;
-  Scene(this.things, this.lights, this.camera);
+  final List<Thing> things;
+  final List<Light> lights;
+  final Camera camera;
+
+  const Scene(this.things, this.lights, this.camera);
 }
 
 class Sphere implements Thing {
-  double radius;
-  double radius2;
-  Vector center;
-  Surface surface;
+  final double radius;
+  final double radius2;
+  final Vector center;
+  final Surface surface;
 
-  Sphere(this.center, double radius, this.surface)
+  const Sphere(this.center, double radius, this.surface)
       : radius = radius,
         radius2 = radius * radius;
 
@@ -148,10 +151,11 @@ class Sphere implements Thing {
 }
 
 class Plane implements Thing {
-  Vector norm;
-  double offset;
-  Surface surface;
-  Plane(this.norm, this.offset, this.surface);
+  final Vector norm;
+  final double offset;
+  final Surface surface;
+
+  const Plane(this.norm, this.offset, this.surface);
 
   Intersection? intersect(Ray ray) {
     var denom = norm.dot(ray.dir);
@@ -194,7 +198,9 @@ class CustomSurface implements Surface {
   final Color Function(Vector) _diffuse, _specular;
   final double Function(Vector) _reflect;
   final int roughness;
-  CustomSurface(this._diffuse, this._specular, this._reflect, this.roughness);
+
+  const CustomSurface(
+      this._diffuse, this._specular, this._reflect, this.roughness);
 
   Color diffuse(Vector pos) => _diffuse(pos);
   Color specular(Vector pos) => _specular(pos);
@@ -202,7 +208,7 @@ class CustomSurface implements Surface {
 }
 
 class RayTracer {
-  int _maxDepth = 5;
+  static const int _maxDepth = 5;
 
   Intersection? _intersections(Ray ray, Scene scene) {
     double closest = double.infinity;
@@ -271,7 +277,8 @@ class RayTracer {
             (illum > 0) ? light.color.scale(illum) : Color.defaultColor;
         var specular = livec.dot(rd.norm());
         var scolor = (specular > 0)
-            ? light.color.scale(pow(specular, thing.surface.roughness) as double)
+            ? light.color
+                .scale(pow(specular, thing.surface.roughness) as double)
             : Color.defaultColor;
         return col +
             (thing.surface.diffuse(pos) * lcolor) +
@@ -285,14 +292,14 @@ class RayTracer {
 
   void render(Scene scene, CanvasRenderingContext2D ctx, int screenWidth,
       int screenHeight) {
-    Vector getPoint (int x, int y, Camera camera) {
+    Vector getPoint(int x, int y, Camera camera) {
       var recenterX = (x) => (x - (screenWidth / 2.0)) / 2.0 / screenWidth;
       var recenterY = (y) => -(y - (screenHeight / 2.0)) / 2.0 / screenHeight;
       return (camera.forward +
               camera.right * recenterX(x) +
               camera.up * recenterY(y))
           .norm();
-    };
+    }
 
     for (var y = 0; y < screenHeight; y++) {
       for (var x = 0; x < screenWidth; x++) {
