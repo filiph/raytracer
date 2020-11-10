@@ -23,9 +23,9 @@ class CustomRayTracer {
 
   _intersections(Ray ray, Scene scene) {
     double closest = double.infinity;
-    Intersection closestInter;
+    Intersection? closestInter;
     for (Thing thing in scene.things) {
-      Intersection inter = thing.intersect(ray);
+      Intersection? inter = thing.intersect(ray);
       if (inter != null && inter.dist < closest) {
         closestInter = inter;
         closest = inter.dist;
@@ -88,7 +88,7 @@ class CustomRayTracer {
             (illum > 0) ? light.color.scale(illum) : Color.defaultColor;
         var specular = livec.dot(rd.norm());
         var scolor = (specular > 0)
-            ? light.color.scale(pow(specular, thing.surface.roughness))
+            ? light.color.scale(pow(specular, thing.surface.roughness) as double)
             : Color.defaultColor;
         return col +
             (thing.surface.diffuse(pos) * lcolor) +
@@ -102,8 +102,8 @@ class CustomRayTracer {
 
   renderAsync() async {
     Vector getPoint(int x, int y, Camera camera) {
-      num recenterX(x) => (x - (screenHeight / 2.0)) / 2.0 / screenHeight;
-      num recenterY(y) => -(y - (screenHeight / 2.0)) / 2.0 / screenHeight;
+      num recenterX(int x) => (x - (screenHeight / 2.0)) / 2.0 / screenHeight;
+      num recenterY(int y) => -(y - (screenHeight / 2.0)) / 2.0 / screenHeight;
       return (camera.forward +
               camera.right * recenterX(x) +
               camera.up * recenterY(y))
@@ -171,11 +171,11 @@ class CustomRayTracer {
 }
 
 main() async {
-  int width = (window.innerWidth * 0.99).floor();
-  int height = (window.innerHeight * 0.99).floor();
+  int width = (window.innerWidth! * 0.99).floor();
+  int height = (window.innerHeight! * 0.99).floor();
 
   var canvas = CanvasElement(width: width, height: height);
-  document.body.append(canvas);
+  document.body!.append(canvas);
   var ctx = canvas.context2D;
 
   Scene scene = defaultScene();
@@ -231,7 +231,7 @@ main() async {
         winningPoint = point;
       }
     }
-    clickMap[winningPoint]();
+    clickMap[winningPoint as Point<int>]!();
     rayTracer.restart();
   });
 
